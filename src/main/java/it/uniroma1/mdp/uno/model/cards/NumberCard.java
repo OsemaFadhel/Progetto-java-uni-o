@@ -8,7 +8,7 @@ package it.uniroma1.mdp.uno.model.cards;
  */
 public class NumberCard extends Card {
 	/**
-	 * Crea una nuova carta numerica con il colore e il valore specificati.
+	 * Crea una nuova carta numerica con il colore e il valore specificato.
 	 * 
 	 * @param color il colore della carta (rosso, giallo, verde o blu)
 	 * @param value il valore numerico della carta (0-9)
