@@ -9,11 +9,13 @@ public abstract class Player {
 	protected String name;
 	protected List<Card> hand;
 	protected int points;
+	protected boolean unoCalled;
 
 	public Player(String name) {
 		this.name = name;
 		this.hand = new ArrayList<>();
 		this.points = 0;
+		this.unoCalled = false;
 	}
 
 	public String getName() {
@@ -32,13 +34,27 @@ public abstract class Player {
 		this.points += points;
 	}
 
+	public void resetPoints() {
+		this.points = 0;
+	}
+
+	public void setUnoCalled(boolean unoCalled) {
+		this.unoCalled = unoCalled;
+	}
+
+	public boolean isUnoCalled() {
+		return unoCalled;
+	}
+
 	/**
-	 * Aggiunge una carta alla mano del giocatore.
+	 * Aggiunge una carta alla mano del giocatore. Resetta lo stato di "UNO"
+	 * chiamato a false, poiché il giocatore ha ora più di una carta in mano.
 	 * 
 	 * @param card la carta da aggiungere
 	 */
 	public void addCard(Card card) {
 		this.hand.add(card);
+		this.unoCalled = false;
 	}
 
 	/**
