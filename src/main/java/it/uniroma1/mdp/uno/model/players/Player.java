@@ -32,40 +32,53 @@ public abstract class Player {
 		this.points += points;
 	}
 
-	/*
+	/**
 	 * Aggiunge una carta alla mano del giocatore.
+	 * 
+	 * @param card la carta da aggiungere
 	 */
 	public void addCard(Card card) {
 		this.hand.add(card);
 	}
 
-	/*
+	/**
 	 * Rimuove una carta dalla mano del giocatore.
+	 * 
+	 * @param card la carta da rimuovere
 	 */
 	public void removeCard(Card card) {
 		this.hand.remove(card);
 	}
 
-	/*
+	/**
 	 * Restituisce il numero di carte in mano (utile per la View)
+	 * 
+	 * @return il numero di carte in mano
 	 */
 	public int getHandSize() {
 		return this.hand.size();
 	}
 
-	/*
+	/**
 	 * Verifica se il giocatore ha UNO (ovvero se ha una sola carta in mano).
+	 * 
+	 * @return true se il giocatore ha UNO, false altrimenti
 	 */
 	public boolean hasUno() {
 		return this.hand.size() == 1;
 	}
 
-	/*
+	/**
 	 * Svuota la mano del giocatore (ad esempio, alla fine di una partita).
 	 */
 	public void clearHand() {
 		this.hand.clear();
 	}
 
+	/**
+	 * Indica se questo giocatore è un bot o un giocatore umano.
+	 * 
+	 * @return true se è un bot, false se è un giocatore umano
+	 */
 	public abstract boolean isBot();
 }

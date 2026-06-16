@@ -11,4 +11,6 @@ public interface BotStrategy {
 	 * in base alla mano del bot, alla carta in cima al mazzo e al colore attuale.
 	 */
 	Card chooseCard(List<Card> hand, Card topCard, CardColor currentColor);
+
+	CardColor chooseColor(List<Card> hand);
 }

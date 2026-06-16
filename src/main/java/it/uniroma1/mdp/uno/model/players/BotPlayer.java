@@ -27,4 +27,8 @@ public class BotPlayer extends Player {
 		 */
 		return strategy.chooseCard(this.hand, topCard, currentColor);
 	}
+
+	public CardColor chooseWildColor() {
+		return strategy.chooseColor(this.hand);
+	}
 }

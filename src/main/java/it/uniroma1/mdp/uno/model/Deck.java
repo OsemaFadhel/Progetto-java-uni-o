@@ -17,7 +17,7 @@ class Deck {
 	 * Initializes the deck with a stack of cards and then shuffles it. Ready to be
 	 * drawn from.
 	 */
-	public Deck() {
+	Deck() {
 		cards = new Stack<>();
 		initializeStandardDeck();
 		shuffle();
@@ -58,11 +58,23 @@ class Deck {
 		}
 	}
 
-	public void shuffle() {
+	/*
+	 * refill the deck with the given cards and shuffle it
+	 */
+	void refillDeck(Stack<Card> discardPile) {
+		cards.addAll(discardPile);
+		discardPile.clear();
+		shuffle();
+	}
+
+	void shuffle() {
 		Collections.shuffle(cards);
 	}
 
-	public Card drawCard() {
+	/*
+	 * Game engine try and catch. catch will call refillDeck
+	 */
+	Card drawCard() {
 		if (cards.isEmpty()) {
 			/*
 			 * Handle the case when the deck is empty. Game engine will get from the discard
