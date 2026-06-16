@@ -5,12 +5,24 @@ import java.util.List;
 
 import it.uniroma1.mdp.uno.model.cards.Card;
 
+/**
+ * Rappresenta un giocatore del gioco. Un giocatore ha un nome e una mano di
+ * carte.
+ * 
+ * @author Osema Fadhel
+ */
 public abstract class Player {
 	protected String name;
 	protected List<Card> hand;
 	protected int points;
 	protected boolean unoCalled;
 
+	/**
+	 * Crea un nuovo giocatore con il nome specificato. Inizialmente, la mano del
+	 * giocatore è vuota e i punti sono 0.
+	 * 
+	 * @param name il nome del giocatore
+	 */
 	public Player(String name) {
 		this.name = name;
 		this.hand = new ArrayList<>();
@@ -30,17 +42,31 @@ public abstract class Player {
 		return points;
 	}
 
+	/**
+	 * Aggiunge punti al totale del giocatore.
+	 * 
+	 * @param points i punti da aggiungere
+	 */
 	public void addPoints(int points) {
 		this.points += points;
 	}
 
+	/**
+	 * Resetta i punti del giocatore a 0 (ad esempio, all'inizio di una nuova
+	 * partita).
+	 */
 	public void resetPoints() {
 		this.points = 0;
 	}
 
 	/**
+	 * Imposta lo stato di "UNO" chiamato. Se uno stato true viene impostato quando
+	 * il giocatore non ha una sola carta in mano, viene lanciata un'eccezione.
 	 * 
 	 * @param unoCalled
+	 * 
+	 * @throws IllegalStateException se si tenta di chiamare UNO quando il giocatore
+	 *                               non ha una sola carta in mano
 	 */
 	public void setUnoCalled(boolean unoCalled) {
 		if (unoCalled && !hasUno()) {
@@ -49,6 +75,11 @@ public abstract class Player {
 		this.unoCalled = unoCalled;
 	}
 
+	/**
+	 * Restituisce lo stato di "UNO" chiamato.
+	 * 
+	 * @return
+	 */
 	public boolean isUnoCalled() {
 		return unoCalled;
 	}

@@ -7,6 +7,8 @@ import it.uniroma1.mdp.uno.model.cards.CardColor;
  * Rappresenta un giocatore bot. Il bot delega tutte le scelte di gioco a un
  * oggetto {@link BotStrategy} iniettato al momento della sua creazione. Questo
  * rende il comportamento del bot facilmente intercambiabile.
+ * 
+ * @author Osema Fadhel
  */
 public class BotPlayer extends Player {
 	private BotStrategy strategy;

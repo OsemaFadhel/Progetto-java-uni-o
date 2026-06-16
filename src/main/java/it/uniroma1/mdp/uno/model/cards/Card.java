@@ -49,6 +49,6 @@ public abstract class Card {
 	 * @return il nome del file dell'immagine (es. "RED_5.JPG")
 	 */
 	public String getImageFileName() {
-		return color + "_" + value + ".JPG";
+		return color + "_" + value.getFileName() + ".JPG";
 	}
 }
