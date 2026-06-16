@@ -38,7 +38,14 @@ public abstract class Player {
 		this.points = 0;
 	}
 
+	/**
+	 * 
+	 * @param unoCalled
+	 */
 	public void setUnoCalled(boolean unoCalled) {
+		if (unoCalled && !hasUno()) {
+			throw new IllegalStateException("Non puoi chiamare UNO se non hai una sola carta in mano!");
+		}
 		this.unoCalled = unoCalled;
 	}
 

@@ -10,6 +10,16 @@ import it.uniroma1.mdp.uno.model.cards.CardValue;
 import it.uniroma1.mdp.uno.model.players.BotPlayer;
 import it.uniroma1.mdp.uno.model.players.Player;
 
+/**
+ * Rappresenta il motore di gioco per una partita di UNO. Gestisce lo stato del
+ * gioco, i giocatori, il mazzo di carte e le regole. Il motore di gioco è
+ * responsabile di: 1. Inizializzare la partita con i giocatori e il mazzo 2.
+ * Gestire il turno di gioco, l'ordine dei giocatori e le azioni 3. Applicare le
+ * regole del gioco (ad esempio, effetti delle carte, chiamata di UNO) 4.
+ * Determinare il vincitore alla fine della partita
+ * 
+ * @author Osema Fadhel
+ */
 public class GameEngine {
 	private List<Player> players;
 	private int currentPlayerIndex;
@@ -23,13 +33,25 @@ public class GameEngine {
 		this.discardPile = new Stack<>();
 	}
 
-	/*
-	 * Adds a player to the game.
+	/**
+	 * Aggiunge un giocatore alla partita. Deve essere chiamato prima di iniziare la
+	 * partita.
+	 * 
+	 * Massimo 6 giocatori umani possono partecipare a una partita.
+	 * 
+	 * @param player
 	 */
 	public void addPlayer(Player player) {
+		if (players.size() >= 6) {
+			throw new IllegalStateException("Non puoi aggiungere più di 6 giocatori!");
+		}
 		players.add(player);
 	}
 
+	/**
+	 * Inizia la partita. Distribuisce le carte ai giocatori e posiziona la prima
+	 * carta sul mazzo degli scarti.
+	 */
 	public void startGame() {
 		if (players.size() < 2) {
 			throw new IllegalStateException("Servono almeno due giocatori per iniziare la partita.");
@@ -53,6 +75,10 @@ public class GameEngine {
 		showFirstCard();
 	}
 
+	/**
+	 * Mostra la prima carta del mazzo degli scarti. Se è una carta Wild Draw Four,
+	 * rimescola e pesca un'altra carta finché non si ottiene una carta valida.
+	 */
 	private void showFirstCard() {
 		Card firstCard = deck.drawCard();
 
@@ -65,6 +91,13 @@ public class GameEngine {
 		currentColor = firstCard.getColor();
 	}
 
+	/**
+	 * Gioca una carta dal giocatore corrente. Applica gli effetti della carta e
+	 * passa al turno successivo.
+	 * 
+	 * @param player
+	 * @param card
+	 */
 	public void playCard(Player player, Card card) {
 		if (!card.isPlayable(discardPile.peek(), currentColor)) {
 			throw new IllegalArgumentException("Carta non giocabile!");
@@ -72,6 +105,17 @@ public class GameEngine {
 
 		player.removeCard(card);
 		discardPile.push(card);
+
+		if (player.getHandSize() == 0) {
+			/*
+			 * calcolare i Punti? da vedere meglio la vittoria.
+			 */
+			return;
+		}
+
+		if (player.isBot() && player.getHandSize() == 1) {
+			callUno(player);
+		}
 
 		/*
 		 * apply effects of action cards (SKIP, REVERSE, DRAW_2, WILD_DRAW_FOUR)
@@ -86,6 +130,7 @@ public class GameEngine {
 				BotPlayer botPlayer = (BotPlayer) player;
 				CardColor chosenColor = botPlayer.chooseWildColor();
 				setWildColor(chosenColor);
+				moveToNextPlayer();
 			} else {
 				/*
 				 * For Human players, controller will do the job remember to add a timer like 10
@@ -101,18 +146,18 @@ public class GameEngine {
 		}
 	}
 
+	/**
+	 * Sceglie un colore per una carta Wild. Deve essere chiamato dopo aver giocato
+	 * una carta Wild.
+	 * 
+	 * @param chosenColor
+	 */
 	public void setWildColor(CardColor chosenColor) {
-		if (chosenColor == CardColor.WILD) {
-			throw new IllegalArgumentException("Non puoi scegliere WILD come colore!");
-		}
-
 		this.currentColor = chosenColor;
-
-		moveToNextPlayer();
 	}
 
 	/**
-	 * Pesca le carte al giocatore
+	 * Pesca le carte dal deck e le assegna al giocatore
 	 * 
 	 * @param player giocatore che deve pescare
 	 * @param count  numero di carte da pescare
@@ -173,11 +218,40 @@ public class GameEngine {
 		return players.get(targetIndex);
 	}
 
-	public void moveToNextPlayer() {
+	/**
+	 * Passa al prossimo giocatore in base alla direzione del gioco (oraria o
+	 * antioraria)
+	 */
+	private void moveToNextPlayer() {
 		if (isClockwise) {
 			currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 		} else {
 			currentPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
+		}
+	}
+
+	/**
+	 * Permette a un giocatore di chiamare "UNO" se ha una o due carte in mano.
+	 * 
+	 * @param player
+	 */
+	public void callUno(Player player) {
+		if (player.getHandSize() == 1) {
+			player.setUnoCalled(true);
+		} else {
+			throw new IllegalStateException("Non puoi chiamare UNO se non hai una sola carta in mano.");
+		}
+	}
+
+	/**
+	 * Se un giocatore ha una sola carta in mano e non ha chiamato "UNO", deve
+	 * pescare due carte come penalità.
+	 * 
+	 * @param player
+	 */
+	public void unoNotCalled(Player player) {
+		if (player.getHandSize() == 1 && !player.isUnoCalled()) {
+			drawCards(player, 2);
 		}
 	}
 

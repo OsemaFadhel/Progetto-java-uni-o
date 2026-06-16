@@ -71,8 +71,11 @@ class Deck {
 		Collections.shuffle(cards);
 	}
 
-	/*
-	 * Game engine try and catch. catch will call refillDeck
+	/**
+	 * Prende una carta dal mazzo. Se il mazzo è vuoto, lancia un'eccezione. Il
+	 * GameEngine si occuperà di rifornire il mazzo dagli scarti e rimescolare.
+	 * 
+	 * @return Card: la carta pescata
 	 */
 	Card drawCard() {
 		if (cards.isEmpty()) {
