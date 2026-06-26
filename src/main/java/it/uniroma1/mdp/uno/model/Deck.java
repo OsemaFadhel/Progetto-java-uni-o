@@ -10,12 +10,15 @@ import it.uniroma1.mdp.uno.model.cards.CardValue;
 import it.uniroma1.mdp.uno.model.cards.NumberCard;
 import it.uniroma1.mdp.uno.model.cards.WildCard;
 
+/**
+ * Rappresenta un mazzo di carte Uno. Il mazzo contiene tutte le carte Uno
+ * standard e fornisce metodi per mescolare, pescare e rifornire il mazzo.
+ */
 class Deck {
 	private Stack<Card> cards;
 
-	/*
-	 * Initializes the deck with a stack of cards and then shuffles it. Ready to be
-	 * drawn from.
+	/**
+	 * Crea un nuovo mazzo di carte Uno standard.
 	 */
 	Deck() {
 		cards = new Stack<>();
@@ -23,6 +26,10 @@ class Deck {
 		shuffle();
 	}
 
+	/**
+	 * Inizializza il mazzo con le carte Uno standard. Aggiunge tutte le carte
+	 * numeriche, le carte azione e le carte Wild.
+	 */
 	private void initializeStandardDeck() {
 		/*
 		 * We add all NumberCards, then all ActionCards, then all WildCards.
@@ -58,8 +65,10 @@ class Deck {
 		}
 	}
 
-	/*
-	 * refill the deck with the given cards and shuffle it
+	/**
+	 * Rifornisce il mazzo con le carte scartate e le mescola.
+	 * 
+	 * @param discardPile lo stack delle carte scartate
 	 */
 	void refillDeck(Stack<Card> discardPile) {
 		cards.addAll(discardPile);
@@ -67,6 +76,9 @@ class Deck {
 		shuffle();
 	}
 
+	/**
+	 * Mescola le carte nel mazzo.
+	 */
 	void shuffle() {
 		Collections.shuffle(cards);
 	}

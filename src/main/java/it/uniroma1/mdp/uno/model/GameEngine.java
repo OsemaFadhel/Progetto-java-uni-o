@@ -68,10 +68,6 @@ public class GameEngine {
 				player.addCard(deck.drawCard());
 			}
 		}
-		/*
-		 * Put first card on the discard pile. If it's a Wild or Wild Draw Four,
-		 * reshuffle and draw again.
-		 */
 		showFirstCard();
 	}
 
