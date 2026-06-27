@@ -21,17 +21,46 @@ import it.uniroma1.mdp.uno.model.players.Player;
  * @author Osema Fadhel
  */
 public class GameEngine {
+	private GameState gameState;
 	private List<Player> players;
 	private int currentPlayerIndex;
 	private Deck deck;
 	private Stack<Card> discardPile;
 	private CardColor currentColor;
+	private CardColor colorBeforeWild;
 	private boolean isClockwise;
 
 	public GameEngine() {
 		this.players = new ArrayList<>();
 		this.discardPile = new Stack<>();
+		this.gameState = GameState.NOT_STARTED;
 	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public Player getCurrentPlayer() {
+		return players.get(currentPlayerIndex);
+	}
+
+	public Card getTopCard() {
+		return discardPile.peek();
+	}
+
+	public CardColor getCurrentColor() {
+		return currentColor;
+	}
+
+	public boolean isClockwise() {
+		return isClockwise;
+	}
+
+	
 
 	/**
 	 * Aggiunge un giocatore alla partita. Deve essere chiamato prima di iniziare la
@@ -45,6 +74,9 @@ public class GameEngine {
 		if (players.size() >= 6) {
 			throw new IllegalStateException("Non puoi aggiungere più di 6 giocatori!");
 		}
+		if (gameState != GameState.NOT_STARTED) {
+			throw new IllegalStateException("Partita iniziata, non puoi aggiungere giocatori!");
+		}
 		players.add(player);
 	}
 
@@ -53,6 +85,9 @@ public class GameEngine {
 	 * carta sul mazzo degli scarti.
 	 */
 	public void startGame() {
+		if (gameState != GameState.NOT_STARTED) {
+			throw new IllegalStateException("Gioco in corso!");
+		}
 		if (players.size() < 2) {
 			throw new IllegalStateException("Servono almeno due giocatori per iniziare la partita.");
 		}
@@ -69,6 +104,7 @@ public class GameEngine {
 			}
 		}
 		showFirstCard();
+		gameState = GameState.WAITING_FOR_PLAYER_ACTION;
 	}
 
 	/**
@@ -78,13 +114,21 @@ public class GameEngine {
 	private void showFirstCard() {
 		Card firstCard = deck.drawCard();
 
-		while (firstCard.getValue() == CardValue.WILD_DRAW_FOUR) {
+		while (firstCard.getColor() == CardColor.WILD) {
 			discardPile.push(firstCard);
 			deck.refillDeck(discardPile);
 			firstCard = deck.drawCard();
 		}
 		discardPile.push(firstCard);
 		currentColor = firstCard.getColor();
+	}
+
+	public void drawDuringTurn(Player player) {
+		drawCards(player, 1);
+		/**
+		 * Ritorna la carta pescata (così il Controller può offrire di giocarla se è giocabile)
+		 * Non avanza automaticamente il turno — il Controller decide se far giocare la carta o chiamare passTurn()
+		 */
 	}
 
 	/**
@@ -95,7 +139,10 @@ public class GameEngine {
 	 * @param card
 	 */
 	public void playCard(Player player, Card card) {
-		if (!card.isPlayable(discardPile.peek(), currentColor)) {
+		if (gameState != GameState.WAITING_FOR_PLAYER_ACTION) {
+			throw new IllegalStateException("Non puoi giocare una carta al momento!");
+		}
+		if (!card.isPlayable(getTopCard(), currentColor)) {
 			throw new IllegalArgumentException("Carta non giocabile!");
 		}
 
@@ -104,8 +151,9 @@ public class GameEngine {
 
 		if (player.getHandSize() == 0) {
 			/*
-			 * calcolare i Punti? da vedere meglio la vittoria.
-			 */
+			* calcolare i Punti? da vedere meglio la vittoria.
+			*/
+			this.gameState = GameState.ROUND_OVER;
 			return;
 		}
 
@@ -113,32 +161,35 @@ public class GameEngine {
 			callUno(player);
 		}
 
-		/*
-		 * apply effects of action cards (SKIP, REVERSE, DRAW_2, WILD_DRAW_FOUR)
-		 */
-		applyCardEffect(card);
-
 		if (card.getColor() == CardColor.WILD) {
 			// For Wild cards, the player must choose a color
-			this.currentColor = CardColor.WILD;
+			this.colorBeforeWild = this.currentColor;
 
 			if (player.isBot()) {
 				BotPlayer botPlayer = (BotPlayer) player;
-				CardColor chosenColor = botPlayer.chooseWildColor();
-				setWildColor(chosenColor);
-				moveToNextPlayer();
+				this.currentColor = botPlayer.chooseWildColor();
+				if (card.getValue() == CardValue.WILD_DRAW_FOUR) {
+					this.gameState = GameState.WAITING_FOR_CHALLENGE;
+					return;
+				}
+				else {
+					moveToNextPlayer();
+					this.gameState = GameState.WAITING_FOR_PLAYER_ACTION; 
+				}
 			} else {
+				this.gameState = GameState.WAITING_FOR_COLOR_CHOICE;
 				/*
-				 * For Human players, controller will do the job remember to add a timer like 10
-				 * seconds to choose a color, otherwise the game will automatically choose a
-				 * color for the player (randomly)
-				 */
+				* For Human players, controller will do the job remember to add a timer like 10
+				* seconds to choose a color, otherwise the game will automatically choose a
+				* color for the player (randomly)
+				*/
 				return;
 			}
 		} else {
+			applyCardEffect(card);
 			this.currentColor = card.getColor();
 			moveToNextPlayer();
-
+			this.gameState = GameState.WAITING_FOR_PLAYER_ACTION;
 		}
 	}
 
@@ -149,7 +200,46 @@ public class GameEngine {
 	 * @param chosenColor
 	 */
 	public void setWildColor(CardColor chosenColor) {
+		if (gameState != GameState.WAITING_FOR_COLOR_CHOICE) {
+			throw new IllegalStateException("Non puoi scegliere un colore! Gioca una carta Wild!");
+		}
 		this.currentColor = chosenColor;
+		if (getTopCard().getValue() == CardValue.WILD_DRAW_FOUR) {
+			this.gameState = GameState.WAITING_FOR_CHALLENGE;
+		} else {
+			moveToNextPlayer();
+			this.gameState = GameState.WAITING_FOR_PLAYER_ACTION;
+		}
+	}
+
+	public void solveChallenge(boolean doChallenge) {
+		if (gameState != GameState.WAITING_FOR_CHALLENGE) {
+			throw new IllegalStateException("Carta Wild 4 deve essere stata giocata!");
+		}
+		Player currentPlayer = getCurrentPlayer();
+		Player challenger = getTargetPlayer();
+
+		if (doChallenge) {
+			if (isWildDrawFourLegal()) {
+				drawCards(challenger, 6);
+				moveToNextPlayer();
+				moveToNextPlayer();
+			}
+			else {
+				drawCards(currentPlayer, 4);
+				moveToNextPlayer();
+			}
+		}
+		else {
+			drawCards(challenger, 4);
+			moveToNextPlayer();
+			moveToNextPlayer();
+		}
+		this.gameState = GameState.WAITING_FOR_PLAYER_ACTION;
+	}
+
+	private boolean isWildDrawFourLegal() {
+		return getCurrentPlayer().getHand().stream().noneMatch(c -> c.getColor() == colorBeforeWild);
 	}
 
 	/**
@@ -160,19 +250,17 @@ public class GameEngine {
 	 */
 	public void drawCards(Player player, int count) {
 		for (int i = 0; i < count; i++) {
-			try {
-				player.addCard(deck.drawCard());
-			} catch (IllegalStateException e) {
+			if (deck.isEmpty()) {
 				Card topCard = discardPile.pop();
 				deck.refillDeck(discardPile);
 				discardPile.push(topCard);
-				player.addCard(deck.drawCard());
 			}
+			player.addCard(deck.drawCard());
 		}
 	}
 
 	/**
-	 * Applica l'azione della carta (REVERSE, SKIP, DRAW_2, WILD_DRAW_FOUR)
+	 * Applica l'azione della carta (REVERSE, SKIP, DRAW_2)
 	 * 
 	 * @param card carta giocata
 	 */
@@ -187,11 +275,6 @@ public class GameEngine {
 		case DRAW_TWO:
 			Player targetTwo = getTargetPlayer();
 			drawCards(targetTwo, 2);
-			moveToNextPlayer();
-			break;
-		case WILD_DRAW_FOUR:
-			Player targetFour = getTargetPlayer();
-			drawCards(targetFour, 4);
 			moveToNextPlayer();
 			break;
 		default:
@@ -212,6 +295,16 @@ public class GameEngine {
 			targetIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
 		}
 		return players.get(targetIndex);
+	}
+
+	private Player getPreviousPlayer() {
+		int targetIndex;
+		if (isClockwise) {
+			targetIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
+		} else {
+			targetIndex = (currentPlayerIndex + 1) % players.size(); 
+		}
+		return players.get(targetIndex); 
 	}
 
 	/**

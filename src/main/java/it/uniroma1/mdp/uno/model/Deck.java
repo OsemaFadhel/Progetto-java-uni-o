@@ -91,14 +91,12 @@ class Deck {
 	 */
 	Card drawCard() {
 		if (cards.isEmpty()) {
-			/*
-			 * Handle the case when the deck is empty. Game engine will get from the discard
-			 * pile and shuffle it back into the deck.
-			 */
 			throw new IllegalStateException("The deck is empty. Cannot draw a card.");
 		}
-		/* remove and return the top card from the deck */
 		return cards.pop();
 	}
 
+	public boolean isEmpty() {
+		return cards.isEmpty();
+	}
 }
