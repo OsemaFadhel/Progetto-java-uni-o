@@ -1,6 +1,7 @@
 package it.uniroma1.mdp.uno.model.players;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import it.uniroma1.mdp.uno.model.cards.Card;
@@ -35,7 +36,7 @@ public abstract class Player {
 	}
 
 	public List<Card> getHand() {
-		return hand;
+		return Collections.unmodifiableList(hand);
 	}
 
 	public int getPoints() {
