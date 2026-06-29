@@ -65,6 +65,11 @@ public class GameEngine {
 		return isClockwise;
 	}
 
+	/**
+	 * Imposta la modalità di gioco. Può essere SINGLE_GAME o POINTS_GAME.
+	 * 
+	 * @param mode modalità di gioco.
+	 */
 	public void setGameMode(GameMode mode) {
 		if (gameState != GameState.NOT_STARTED) {
 			throw new IllegalStateException("Non puoi, gioco iniziato!");
@@ -72,6 +77,11 @@ public class GameEngine {
 		this.gameMode = mode;
 	}
 
+	/**
+	 * Imposta la soglia di punti per la modalità POINTS_GAME.
+	 * 
+	 * @param points soglia di punti.
+	 */
 	public void setPointThreshold(int points) {
 		if (gameState != GameState.NOT_STARTED) {
 			throw new IllegalStateException("Non puoi, gioco iniziato!");
@@ -97,6 +107,9 @@ public class GameEngine {
 		players.add(player);
 	}
 
+	/**
+	 * Ripulisce lo stato di gioco.
+	 */
 	public void resetGame() {
 		if (gameState != GameState.GAME_OVER) {
 			throw new IllegalStateException("Gioco in corso!");
@@ -111,8 +124,7 @@ public class GameEngine {
 	}
 
 	/**
-	 * Inizia la partita. Distribuisce le carte ai giocatori e posiziona la prima
-	 * carta sul mazzo degli scarti.
+	 * Inizia la partita.
 	 */
 	public void startGame() {
 		if (gameState != GameState.NOT_STARTED) {
@@ -125,12 +137,16 @@ public class GameEngine {
 		for (Player p : players) {
 			p.resetPoints();
 		}
-		
+
 		initRound();
 
 		gameState = GameState.WAITING_FOR_PLAYER_ACTION;
 	}
 
+	/**
+	 * Inizializza un nuovo round di gioco. Distribuisce le carte ai giocatori e
+	 * posiziona la prima carta sul mazzo degli scarti.
+	 */
 	private void initRound() {
 		this.currentPlayerIndex = 0;
 		this.deck = new Deck();
@@ -162,6 +178,11 @@ public class GameEngine {
 		currentColor = firstCard.getColor();
 	}
 
+	/**
+	 * Pesca dal mazzo.
+	 * 
+	 * @param player
+	 */
 	public void drawDuringTurn(Player player) {
 		if (gameState != GameState.WAITING_FOR_PLAYER_ACTION) {
 			throw new IllegalStateException("Non puoi pescare una carta al momento!");
@@ -172,6 +193,9 @@ public class GameEngine {
 		drawCards(player, 1);
 	}
 
+	/**
+	 * Passa il turno al giocatore successivo.
+	 */
 	public void passTurn() {
 		if (gameState != GameState.WAITING_FOR_PLAYER_ACTION) {
 			throw new IllegalStateException("Non puoi skippare il turno!");
@@ -202,9 +226,9 @@ public class GameEngine {
 
 		if (player.getHandSize() == 0) {
 			/*
-			* calcolare i Punti? da vedere meglio la vittoria.
-			 * controller fa il check a roundover.
-			*/
+			 * calcolare i Punti? da vedere meglio la vittoria. controller fa il check a
+			 * roundover.
+			 */
 			this.gameState = GameState.ROUND_OVER;
 			return;
 		}
@@ -223,17 +247,16 @@ public class GameEngine {
 				if (card.getValue() == CardValue.WILD_DRAW_FOUR) {
 					this.gameState = GameState.WAITING_FOR_CHALLENGE;
 					return;
-				}
-				else {
+				} else {
 					moveToNextPlayer();
 				}
 			} else {
 				this.gameState = GameState.WAITING_FOR_COLOR_CHOICE;
 				/*
-				* For Human players, controller will do the job remember to add a timer like 10
-				* seconds to choose a color, otherwise the game will automatically choose a
-				* color for the player (randomly)
-				*/
+				 * For Human players, controller will do the job remember to add a timer like 10
+				 * seconds to choose a color, otherwise the game will automatically choose a
+				 * color for the player (randomly)
+				 */
 				return;
 			}
 		} else {
@@ -262,6 +285,12 @@ public class GameEngine {
 		}
 	}
 
+	/**
+	 * Sfida una carta Wild Draw Four giocata da un altro giocatore. Deve essere
+	 * chiamato dopo che un giocatore ha giocato una carta Wild Draw Four.
+	 * 
+	 * @param doChallenge
+	 */
 	public void solveChallenge(boolean doChallenge) {
 		if (gameState != GameState.WAITING_FOR_CHALLENGE) {
 			throw new IllegalStateException("Carta Wild 4 deve essere stata giocata!");
@@ -274,14 +303,12 @@ public class GameEngine {
 				drawCards(challenger, 6);
 				moveToNextPlayer();
 				moveToNextPlayer();
-			}
-			else {
+			} else {
 				this.currentColor = colorBeforeWild;
 				drawCards(currentPlayer, 4);
 				moveToNextPlayer();
 			}
-		}
-		else {
+		} else {
 			drawCards(challenger, 4);
 			moveToNextPlayer();
 			moveToNextPlayer();
@@ -289,6 +316,13 @@ public class GameEngine {
 		this.gameState = GameState.WAITING_FOR_PLAYER_ACTION;
 	}
 
+	/**
+	 * Controlla se la carta Wild Draw Four giocata è legale. Una carta Wild Draw
+	 * Four è legale se il giocatore che l'ha giocata non aveva altre carte dello
+	 * stesso colore della carta in cima al mazzo degli scarti.
+	 * 
+	 * @return true se la carta Wild Draw Four è legale, false altrimenti
+	 */
 	private boolean isWildDrawFourLegal() {
 		return getCurrentPlayer().getHand().stream().noneMatch(c -> c.getColor() == colorBeforeWild);
 	}
@@ -348,14 +382,19 @@ public class GameEngine {
 		return players.get(targetIndex);
 	}
 
+	/**
+	 * Restituisce il giocatore precedente.
+	 * 
+	 * @return
+	 */
 	private Player getPreviousPlayer() {
 		int targetIndex;
 		if (isClockwise) {
 			targetIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
 		} else {
-			targetIndex = (currentPlayerIndex + 1) % players.size(); 
+			targetIndex = (currentPlayerIndex + 1) % players.size();
 		}
-		return players.get(targetIndex); 
+		return players.get(targetIndex);
 	}
 
 	/**
@@ -398,13 +437,19 @@ public class GameEngine {
 		return false;
 	}
 
+	/**
+	 * Calcola i punti del round per il vincitore. I punti sono calcolati sommando
+	 * il valore delle carte rimanenti in mano agli altri giocatori.
+	 * 
+	 * @return score punti del round
+	 */
 	public int calculateRoundScore(Player winner) {
 		if (gameState != GameState.ROUND_OVER) {
 			throw new IllegalStateException("Gioco in corso!");
 		}
 		int score = 0;
 		for (Player p : players) {
-			if (p != winner ) {
+			if (p != winner) {
 				for (Card c : p.getHand()) {
 					score += c.getPoints();
 				}
@@ -414,20 +459,22 @@ public class GameEngine {
 		if (gameMode == GameMode.SINGLE_GAME) {
 			gameState = GameState.GAME_OVER;
 		}
-		if (gameMode == GameMode.POINTS_GAME && 
-				winner.getPoints() >= pointThreshold) {
+		if (gameMode == GameMode.POINTS_GAME && winner.getPoints() >= pointThreshold) {
 			this.gameState = GameState.GAME_OVER;
 		}
 		return score;
 	}
 
+	/**
+	 * Inizia un nuovo round.
+	 */
 	public void startNewRound() {
 		if (gameState != GameState.ROUND_OVER) {
 			throw new IllegalStateException("Gioco in corso!");
 		}
 
 		initRound();
-		
+
 		gameState = GameState.WAITING_FOR_PLAYER_ACTION;
 	}
 }
