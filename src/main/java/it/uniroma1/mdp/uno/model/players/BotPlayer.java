@@ -53,4 +53,9 @@ public class BotPlayer extends Player {
 	public CardColor chooseWildColor() {
 		return strategy.chooseColor(this.hand);
 	}
+
+	/* deve essere abstract? controllare se deve anche essere private o protected anche in tutti gli altri metodi */
+	public boolean shouldChallenge() {
+	
+	}
 }

@@ -65,6 +65,10 @@ public class GameEngine {
 		return isClockwise;
 	}
 
+	public GameMode getGameMode() {
+		return this.gameMode;
+	}
+
 	/**
 	 * Imposta la modalità di gioco. Può essere SINGLE_GAME o POINTS_GAME.
 	 * 
@@ -98,13 +102,25 @@ public class GameEngine {
 	 * @param player
 	 */
 	public void addPlayer(Player player) {
-		if (players.size() >= 6) {
-			throw new IllegalStateException("Non puoi aggiungere più di 6 giocatori!");
-		}
 		if (gameState != GameState.NOT_STARTED) {
 			throw new IllegalStateException("Partita iniziata, non puoi aggiungere giocatori!");
 		}
+		if (players.size() >= 6) {
+			throw new IllegalStateException("Non puoi aggiungere più di 6 giocatori!");
+		}
 		players.add(player);
+	}
+
+	/**
+	 * Rimuove un giocatore.
+	 * 
+	 * @param player
+	 */
+	public void removePlayer(Player player) {
+		if (gameState != GameState.NOT_STARTED) {
+			throw new IllegalStateException("Partita iniziata, non puoi rimuovere giocatori!");
+		}
+		players.remove(player);
 	}
 
 	/**
@@ -372,7 +388,7 @@ public class GameEngine {
 	 *
 	 * @return Player Il giocatore target
 	 */
-	private Player getTargetPlayer() {
+	public Player getTargetPlayer() {
 		int targetIndex;
 		if (isClockwise) {
 			targetIndex = (currentPlayerIndex + 1) % players.size();
