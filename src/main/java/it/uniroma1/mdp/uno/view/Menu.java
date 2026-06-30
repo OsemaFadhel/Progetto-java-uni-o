@@ -9,13 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import it.uniroma1.mdp.uno.model.*;
-import it.uniroma1.mdp.uno.model.players.Player;
 
 public class Menu {
 	private final Scene scene;
@@ -32,17 +30,8 @@ public class Menu {
 	private VBox secPlayers;
 	private VBox secThreshold;
 	private VBox formAddPlayers;
-	private final List<PlayerEntry> playerEntries = new ArrayList<>();
+	private final List<HBox> playerEntries = new ArrayList<>();
 	private final Label lblError = new Label();
-
-	private static class PlayerEntry {
-		final HBox row;
-		final Player player;
-		PlayerEntry(HBox row, Player player) {
-			this.row = row;
-			this.player = player;
-		}
-	}
 
 	public Menu() {
 		cbType.getItems().addAll("Umano", "Bot Casuale", "Bot Avanzato");
@@ -58,7 +47,6 @@ public class Menu {
 		btnConfirm.getStyleClass().add("button-green");
 		btnStart.getStyleClass().add("button-start");
 
-
 		lblError.getStyleClass().add("label-error");
 		lblError.setVisible(false);
 		lblError.setManaged(false);
@@ -73,15 +61,15 @@ public class Menu {
 		root.setPadding(new Insets(Style.PADDING));
 		root.setAlignment(Pos.TOP_CENTER);
 		root.getStyleClass().add("bg-menu");
-		
+
 		Label title = new Label("UNO");
 		title.getStyleClass().add("label-header");
-		
+
 		HBox modeBtns = new HBox(Style.PADDING, btnSingleGame, btnPointsGame);
 		modeBtns.setAlignment(Pos.CENTER);
-		
+
 		btnStart.setDisable(true);
-		
+
 		root.getChildren().addAll(title, new Separator(), modeBtns, secThreshold, secPlayers, btnStart);
 		return root;
 	}
@@ -109,7 +97,7 @@ public class Menu {
 		VBox box = new VBox(10, lblValue, sliderThreshold);
 
 		box.setAlignment(Pos.CENTER_LEFT);
-		
+
 		box.setVisible(false);
 		box.setManaged(false);
 		return box;
@@ -129,72 +117,71 @@ public class Menu {
 		btnRemove.getStyleClass().add("button-danger");
 		HBox row = new HBox(10, lbl, btnRemove);
 		row.setAlignment(Pos.CENTER_LEFT);
-		
-		PlayerEntry entry = new PlayerEntry(row, player);
-		playerEntries.add(entry);
+
+		playerEntries.add(row);
 		playerListBox.getChildren().add(row);
-		
+
 		btnRemove.setOnAction(e -> {
 			onRemove.run();
-			removePlayerLine(entry);
+			removePlayerLine(row);
 		});
 
 		if (playerEntries.size() >= 6) {
 			btnAddPlayer.setDisable(true);
 		}
-		updateStartButton();	
+		updateStartButton();
 	}
 
-	private void removePlayerLine(PlayerEntry entry) {
-		playerEntries.remove(entry);
-		playerListBox.getChildren().remove(entry.row);
+	private void removePlayerLine(HBox row) {
+		playerEntries.remove(row);
+		playerListBox.getChildren().remove(row);
 
 		btnAddPlayer.setDisable(false);
 		updateStartButton();
 	}
 
 	private void updateStartButton() {
-    	btnStart.setDisable(playerEntries.size() < 2);
+		btnStart.setDisable(playerEntries.size() < 2);
 	}
-	
-	public Scene  getScene() { 
+
+	public Scene getScene() {
 		return scene;
 	}
 
-	public Button getButtonSingleGame() { 
+	public Button getButtonSingleGame() {
 		return btnSingleGame;
 	}
 
-	public Button getButtonPointsGame() { 
-		return btnPointsGame; 
+	public Button getButtonPointsGame() {
+		return btnPointsGame;
 	}
 
-	public Button getButtonAddPlayer() { 
-		return btnAddPlayer; 
+	public Button getButtonAddPlayer() {
+		return btnAddPlayer;
 	}
 
-	public Button getButtonStart() { 
-		return btnStart; 
+	public Button getButtonStart() {
+		return btnStart;
 	}
 
-	public Button getButtonConfirm() { 
-		return btnConfirm; 
+	public Button getButtonConfirm() {
+		return btnConfirm;
 	}
 
-	public Button getButtonUndo() { 
-		return btnUndo; 
+	public Button getButtonUndo() {
+		return btnUndo;
 	}
 
-	public String getNome() { 
-		return tfName.getText().trim(); 
+	public String getNome() {
+		return tfName.getText().trim();
 	}
 
-	public String getTipo() { 
-		return cbType.getValue(); 
+	public String getTipo() {
+		return cbType.getValue();
 	}
 
-	public int getThreshold() { 
-		return (int) sliderThreshold.getValue(); 
+	public int getThreshold() {
+		return (int) sliderThreshold.getValue();
 	}
 
 	public void showSectionPlayers() {

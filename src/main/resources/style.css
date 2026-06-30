@@ -212,3 +212,16 @@
 .button-start:disabled {
     -fx-opacity: 0.4;
 }
+
+.slider .track {
+    -fx-background-color: linear-gradient(to right, 
+        #e74c3c, #e67e00, #f1c40f, #2ecc71, #3498db, #9b59b6);
+    -fx-background-radius: 4;
+    -fx-pref-height: 8;
+}
+
+.slider .thumb:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
