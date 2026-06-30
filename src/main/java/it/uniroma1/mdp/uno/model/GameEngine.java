@@ -108,6 +108,10 @@ public class GameEngine {
 		if (players.size() >= 6) {
 			throw new IllegalStateException("Non puoi aggiungere più di 6 giocatori!");
 		}
+		boolean exists = players.stream().anyMatch(p -> p.getName().equalsIgnoreCase(player.getName()));
+		if (exists) {
+			throw new IllegalStateException("Nome già in uso!");
+		}
 		players.add(player);
 	}
 

@@ -33,6 +33,7 @@ public class Menu {
 	private VBox secThreshold;
 	private VBox formAddPlayers;
 	private final List<PlayerEntry> playerEntries = new ArrayList<>();
+	private final Label lblError = new Label();
 
 	private static class PlayerEntry {
 		final HBox row;
@@ -54,32 +55,40 @@ public class Menu {
 		secPlayers.setVisible(false);
 		secPlayers.setManaged(false);
 
+		btnConfirm.getStyleClass().add("button-green");
+		btnStart.getStyleClass().add("button-start");
+
+
+		lblError.getStyleClass().add("label-error");
+		lblError.setVisible(false);
+		lblError.setManaged(false);
+
 		VBox root = buildRoot();
 		this.scene = new Scene(root, Style.WIDTH, Style.HEIGHT);
+		Style.applyTo(this.scene);
 	}
 
 	private VBox buildRoot() {
 		VBox root = new VBox(Style.PADDING);
 		root.setPadding(new Insets(Style.PADDING));
 		root.setAlignment(Pos.TOP_CENTER);
+		root.getStyleClass().add("bg-menu");
 		
 		Label title = new Label("UNO");
-		title.setFont(Style.FONT_TITLE);
+		title.getStyleClass().add("label-header");
 		
 		HBox modeBtns = new HBox(Style.PADDING, btnSingleGame, btnPointsGame);
 		modeBtns.setAlignment(Pos.CENTER);
 		
-		btnStart.setMaxWidth(Double.MAX_VALUE);
 		btnStart.setDisable(true);
 		
-		root.getChildren().addAll(title, new Separator(), modeBtns, secThreshold, new Separator(), secPlayers, btnStart);
+		root.getChildren().addAll(title, new Separator(), modeBtns, secThreshold, secPlayers, btnStart);
 		return root;
 	}
 
 	private VBox buildSecPlayers() {
 		VBox box = new VBox(10);
 		Label lbl = new Label("Giocatori (2-6)");
-		lbl.setFont(Style.FONT_BOLD);
 		box.getChildren().addAll(lbl, playerListBox, formAddPlayers, btnAddPlayer);
 		return box;
 	}
@@ -107,9 +116,8 @@ public class Menu {
 	}
 
 	private VBox buildFormAddPlayers() {
-		tfName.setPromptText("Username");
 		HBox btns = new HBox(10, btnConfirm, btnUndo);
-		VBox form = new VBox(8, new Label("Nome:"), tfName, new Label("Tipo:"), cbType, btns);
+		VBox form = new VBox(8, new Label("Nome:"), tfName, new Label("Tipo:"), cbType, btns, lblError);
 		form.setVisible(false);
 		form.setManaged(false);
 		return form;
@@ -118,6 +126,7 @@ public class Menu {
 	public void addPlayerLine(Player player, Runnable onRemove) {
 		Label lbl = new Label(player.getName() + " [" + cbType.getValue() + "]");
 		Button btnRemove = new Button("✕");
+		btnRemove.getStyleClass().add("button-danger");
 		HBox row = new HBox(10, lbl, btnRemove);
 		row.setAlignment(Pos.CENTER_LEFT);
 		
@@ -218,9 +227,21 @@ public class Menu {
 	}
 
 	public void hideFormAddPlayers() {
+		hideError();
 		formAddPlayers.setVisible(false);
 		formAddPlayers.setManaged(false);
 		btnAddPlayer.setVisible(true);
 		btnAddPlayer.setManaged(true);
+	}
+
+	public void showError(String msg) {
+		lblError.setText(msg);
+		lblError.setVisible(true);
+		lblError.setManaged(true);
+	}
+
+	public void hideError() {
+		lblError.setVisible(false);
+		lblError.setManaged(false);
 	}
 }

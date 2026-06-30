@@ -5,7 +5,10 @@ import it.uniroma1.mdp.uno.model.GameMode;
 import it.uniroma1.mdp.uno.model.players.BotPlayer;
 import it.uniroma1.mdp.uno.model.players.HumanPlayer;
 import it.uniroma1.mdp.uno.model.players.Player;
+import it.uniroma1.mdp.uno.model.players.strategies.RandomBotStrategy;
+import it.uniroma1.mdp.uno.model.players.strategies.AdvancedBotStrategy;
 import it.uniroma1.mdp.uno.view.*;
+import it.uniroma1.mdp.uno.model.*;
 import javafx.stage.Stage;
 
 public class GameController {
@@ -41,18 +44,26 @@ public class GameController {
 		menuView.getButtonConfirm().setOnAction(e -> {
 			String nome = menuView.getNome();
 			if (nome.isEmpty()) return;
-			Player p = addPlayer(nome, menuView.getTipo());
-			menuView.addPlayerLine(p, () -> engine.removePlayer(p));
-			menuView.hideFormAddPlayers();
+			try {
+				Player p = addPlayer(nome, menuView.getTipo());
+				menuView.addPlayerLine(p, () -> engine.removePlayer(p));
+				menuView.hideFormAddPlayers();
+			} catch (Exception ex) {
+				menuView.showError(ex.getMessage());
+			}
 		});
 		
 		menuView.getButtonStart().setOnAction(e -> {
 			if (engine.getGameMode() == GameMode.POINTS_GAME) {
 				engine.setPointThreshold(menuView.getThreshold());
 			}
-			engine.startGame();
-			showGame();
-			handleStateChange();
+			try {
+				engine.startGame();
+				showGame();
+				handleStateChange();
+			} catch (Exception ex) { 
+				menuView.showError(ex.getMessage());
+			}
 		});
 		
 		stage.setScene(menuView.getScene());
@@ -65,6 +76,10 @@ public class GameController {
 
 	public void start() {
 		stage.setTitle("UNO");
+		stage.setWidth(Style.WIDTH);
+		stage.setHeight(Style.HEIGHT);
+		stage.setResizable(false);
+		
 		showMenu();
 		stage.show();
 	}

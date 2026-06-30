@@ -25,6 +25,12 @@ public abstract class Player {
 	 * @param name il nome del giocatore
 	 */
 	public Player(String name) {
+		if (name.length() > 8) {
+			throw new IllegalArgumentException("Nome troppo lungo");
+		}
+		if (name.isEmpty()) {
+			throw new IllegalArgumentException("Nome vuoto");
+		}
 		this.name = name;
 		this.hand = new ArrayList<>();
 		this.points = 0;

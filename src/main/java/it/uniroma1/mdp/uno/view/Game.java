@@ -6,8 +6,6 @@ import javafx.scene.*;
 public class Game {
 
     public Scene getScene() {
-        Scene scene;
-
-        return scene;
+        return new Scene(new javafx.scene.layout.VBox(), 1200, 800);
     }
 }
