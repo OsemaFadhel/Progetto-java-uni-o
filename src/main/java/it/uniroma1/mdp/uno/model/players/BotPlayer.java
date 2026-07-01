@@ -25,7 +25,6 @@ public class BotPlayer extends Player {
 		this.strategy = strategy;
 	}
 
-	@Override
 	public boolean isBot() {
 		return true;
 	}

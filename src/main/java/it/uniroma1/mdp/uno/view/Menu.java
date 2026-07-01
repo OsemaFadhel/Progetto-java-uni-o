@@ -15,6 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Rappresenta il menu principale del gioco UNO, schermata iniziale.
+ */
 public class Menu {
 	private final Scene scene;
 	private final Button btnSingleGame = new Button("Partita Singola");
@@ -33,6 +36,9 @@ public class Menu {
 	private final List<HBox> playerEntries = new ArrayList<>();
 	private final Label lblError = new Label();
 
+	/**
+	 * Crea una nuova istanza del menu principale del gioco UNO.
+	 */
 	public Menu() {
 		cbType.getItems().addAll("Umano", "Bot Casuale", "Bot Avanzato");
 		cbType.setValue("Umano");
@@ -56,6 +62,11 @@ public class Menu {
 		Style.applyTo(this.scene);
 	}
 
+	/**
+	 * Restituisce il layout del menu principale del gioco UNO.
+	 * 
+	 * @return {@code VBox}
+	 */
 	private VBox buildRoot() {
 		VBox root = new VBox(Style.PADDING);
 		root.setPadding(new Insets(Style.PADDING));
@@ -74,13 +85,25 @@ public class Menu {
 		return root;
 	}
 
+	/**
+	 * Restituisce il layout della sezione giocatori. Composta da Label, VBox con
+	 * lista giocatori e pulsante per aggiungere giocatori.
+	 * 
+	 * @return {@code VBox}
+	 */
 	private VBox buildSecPlayers() {
 		VBox box = new VBox(10);
-		Label lbl = new Label("Giocatori (2-6)");
-		box.getChildren().addAll(lbl, playerListBox, formAddPlayers, btnAddPlayer);
+		Label label = new Label("Giocatori (2-6)");
+		box.getChildren().addAll(label, playerListBox, formAddPlayers, btnAddPlayer);
 		return box;
 	}
 
+	/**
+	 * Restituisce il layout della sezione soglia punti. Composta da Label e Slider
+	 * per impostare la soglia punti.
+	 * 
+	 * @return {@code VBox}
+	 */
 	private VBox buildSecThreshold() {
 		sliderThreshold.setMajorTickUnit(50);
 		sliderThreshold.setMinorTickCount(0);
@@ -103,6 +126,13 @@ public class Menu {
 		return box;
 	}
 
+	/**
+	 * Restituisce il layout del form per aggiungere giocatori. Composto da Label,
+	 * TextField per il nome, ComboBox per il tipo di giocatore, pulsante per
+	 * confermare e pulsante per annullare.
+	 * 
+	 * @return {@code VBox}
+	 */
 	private VBox buildFormAddPlayers() {
 		HBox btns = new HBox(10, btnConfirm, btnUndo);
 		VBox form = new VBox(8, new Label("Nome:"), tfName, new Label("Tipo:"), cbType, btns, lblError);
@@ -111,11 +141,18 @@ public class Menu {
 		return form;
 	}
 
-	public void addPlayerLine(Player player, Runnable onRemove) {
-		Label lbl = new Label(player.getName() + " [" + cbType.getValue() + "]");
+	/**
+	 * Aggiunge nuovo giocatore nella sezione giocatori.
+	 * 
+	 * 
+	 * @param name
+	 * @param onRemove
+	 */
+	public void addPlayerLine(String name, Runnable onRemove) {
+		Label label = new Label(name + " [" + cbType.getValue() + "]");
 		Button btnRemove = new Button("✕");
 		btnRemove.getStyleClass().add("button-danger");
-		HBox row = new HBox(10, lbl, btnRemove);
+		HBox row = new HBox(10, label, btnRemove);
 		row.setAlignment(Pos.CENTER_LEFT);
 
 		playerEntries.add(row);
@@ -132,6 +169,11 @@ public class Menu {
 		updateStartButton();
 	}
 
+	/**
+	 * Rimuove un giocatore dalla sezione giocatori.
+	 * 
+	 * @param row
+	 */
 	private void removePlayerLine(HBox row) {
 		playerEntries.remove(row);
 		playerListBox.getChildren().remove(row);
@@ -140,6 +182,10 @@ public class Menu {
 		updateStartButton();
 	}
 
+	/**
+	 * Aggiorna lo stato del pulsante "Inizia Partita!" in base al numero di
+	 * giocatori presenti.
+	 */
 	private void updateStartButton() {
 		btnStart.setDisable(playerEntries.size() < 2);
 	}

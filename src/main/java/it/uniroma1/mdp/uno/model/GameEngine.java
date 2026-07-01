@@ -32,6 +32,7 @@ public class GameEngine {
 	private boolean isClockwise;
 	private GameMode gameMode;
 	private int pointThreshold;
+	private boolean madePlay;
 
 	public GameEngine() {
 		this.players = new ArrayList<>();
@@ -39,6 +40,7 @@ public class GameEngine {
 		this.gameState = GameState.NOT_STARTED;
 		this.pointThreshold = 500;
 		this.gameMode = GameMode.SINGLE_GAME;
+		this.madePlay = false;
 	}
 
 	public GameState getGameState() {
@@ -59,6 +61,10 @@ public class GameEngine {
 
 	public CardColor getCurrentColor() {
 		return currentColor;
+	}
+
+	public CardColor getColorBeforeWild() {
+		return colorBeforeWild;
 	}
 
 	public boolean isClockwise() {
@@ -172,6 +178,7 @@ public class GameEngine {
 		this.deck = new Deck();
 		this.discardPile.clear();
 		this.isClockwise = true;
+		this.madePlay = false;
 
 		for (Player player : players) {
 			player.clearHand();
@@ -211,6 +218,7 @@ public class GameEngine {
 			throw new IllegalArgumentException("Non è il turno di questo giocatore!");
 		}
 		drawCards(player, 1);
+		this.madePlay = true;
 	}
 
 	/**
@@ -219,6 +227,9 @@ public class GameEngine {
 	public void passTurn() {
 		if (gameState != GameState.WAITING_FOR_PLAYER_ACTION) {
 			throw new IllegalStateException("Non puoi skippare il turno!");
+		}
+		if (!madePlay) {
+			throw new IllegalStateException("Devi Pescare o Giocare una Carta!");
 		}
 		moveToNextPlayer();
 	}
@@ -244,11 +255,9 @@ public class GameEngine {
 		player.removeCard(card);
 		discardPile.push(card);
 
+		madePlay = true;
+
 		if (player.getHandSize() == 0) {
-			/*
-			 * calcolare i Punti? da vedere meglio la vittoria. controller fa il check a
-			 * roundover.
-			 */
 			this.gameState = GameState.ROUND_OVER;
 			return;
 		}
@@ -427,6 +436,7 @@ public class GameEngine {
 		} else {
 			currentPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
 		}
+		madePlay = false;
 	}
 
 	/**

@@ -17,15 +17,22 @@
     -fx-background-repeat: no-repeat;
 }
 
+.bg-game {
+    -fx-background-image: url("assets/backgroundGame.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "LuckiestGuy";
+    -fx-font-family: "Luckiest Guy";
     -fx-text-fill: white;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "LuckiestGuy";
+    -fx-font-family: "Luckiest Guy";
     -fx-text-fill: rgb(22, 20, 20);
     -fx-opacity: 1;
 }
@@ -211,6 +218,46 @@
 
 .button-start:disabled {
     -fx-opacity: 0.4;
+}
+
+.button-card {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-cursor: hand;
+}
+
+.button-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.6), 8, 0, 0, 0);
+    -fx-translate-y: -4;
+}
+
+.color-btn-red {
+    -fx-background-color: red;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 15;
+}
+
+.color-btn-blue {
+    -fx-background-color: blue;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 15;
+    -fx-border-radius: 5;
+}
+
+.color-btn-yellow {
+    -fx-background-color: yellow;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 15;
+    -fx-border-radius: 5;
+}
+
+.color-btn-green {
+    -fx-background-color: green;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
 }
 
 .slider .track {

@@ -7,8 +7,6 @@ import it.uniroma1.mdp.uno.model.cards.CardColor;
 
 /**
  * L'interfaccia BotStrategy definisce il comportamento di un bot nel gioco.
- * Implementa la logica per scegliere quale carta giocare e quale colore
- * dichiarare quando gioca una carta Wild.
  * 
  * Segue il design pattern Strategy, permettendo di avere diverse strategie di
  * gioco per i bot.
