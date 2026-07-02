@@ -105,7 +105,9 @@ public class GameController {
 
 		gameView.getButtonContestUno().setOnAction(e -> {
 			try {
-				engine.contestUno();
+				boolean ok = engine.contestUno();
+				gameView.showError(ok ? "UNO contestato!" : "Ha chiamto UNO!");
+				handleStateChange();
 			} catch (Exception ex) {
 				gameView.showError(ex.getMessage());
 			}

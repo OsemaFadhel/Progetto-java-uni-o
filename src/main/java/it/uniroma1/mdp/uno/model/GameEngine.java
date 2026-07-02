@@ -445,10 +445,10 @@ public class GameEngine {
 	 * @param player
 	 */
 	public void callUno(Player player) {
-		if (player.getHandSize() == 1) {
+		if (player.getHandSize() == 1 || player.getHandSize() == 2) {
 			player.setUnoCalled(true);
 		} else {
-			throw new IllegalStateException("Non puoi chiamare UNO se non hai una sola carta in mano.");
+			throw new IllegalStateException("Non puoi chiamare UNO se non hai due carte in mano.");
 		}
 	}
 

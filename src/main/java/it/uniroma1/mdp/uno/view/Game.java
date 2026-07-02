@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -50,7 +51,10 @@ public class Game {
 	private final VBox gameOverOverlay;
 	private final VBox menuOverlay;
 	private final Button btnExitGame = new Button("Esci");
-	private final HBox humanHand = new HBox(); // o panello scrollabile?
+	private final HBox cards = new HBox(6);
+	private final ScrollPane humanHand = new ScrollPane(cards);
+
+
 	private final Button btnDeck;
 	private final Label lblNotification = new Label();
 
@@ -61,7 +65,10 @@ public class Game {
 		this.gameOverOverlay = buildGameOverOverlay();
 		this.menuOverlay = buildMenuOverlay();
 		this.lblNotification.setVisible(false);
+		this.lblNotification.getStyleClass().add("lable-error");
 		this.btnDeck = buildButtonDeck();
+		this.direction.getStyleClass().add("label-direction");
+		this.btnMenu.getStyleClass().add("button-menu");
 
 		StackPane root = buildRoot();
 		this.scene = new Scene(root, Style.WIDTH, Style.HEIGHT);
@@ -156,10 +163,11 @@ public class Game {
 		root.getStyleClass().add("bg-game");
 
 		BorderPane main = new BorderPane();
-		tablePane.setPrefSize(Style.WIDTH, Style.HEIGHT - 100);
+		tablePane.setPrefSize(Style.WIDTH, Style.HEIGHT - 250);
 		main.setTop(buildTopBar());
 		main.setCenter(tablePane);
 		main.setBottom(buildBottomBar());
+		lblNotification.setTranslateY(90);
 
 		root.getChildren().addAll(main, colorPickOverlay, challengeOverlay, roundOverOverlay, gameOverOverlay,
 				menuOverlay, lblNotification);
@@ -181,8 +189,17 @@ public class Game {
 	private VBox buildBottomBar() {
 		humanHand.setPrefHeight(140);
 		humanHand.getStyleClass().add("hand-scroll");
+		humanHand.setMaxWidth(Style.WIDTH - 200);
+		humanHand.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+		humanHand.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		btnUno.getStyleClass().add("button-uno");
+		btnContestUno.getStyleClass().add("button-contest");
+		btnPass.getStyleClass().add("button-pass");
+		HBox bottomBtns = new HBox(6, btnContestUno, btnPass);
+		bottomBtns.setAlignment(Pos.CENTER);
 
-		VBox actionBtns = new VBox(8, btnUno, btnContestUno, btnPass);
+
+		VBox actionBtns = new VBox(6, btnUno, bottomBtns);
 		actionBtns.setAlignment(Pos.CENTER);
 		actionBtns.setPadding(new Insets(0, 10, 0, 10));
 
@@ -197,53 +214,53 @@ public class Game {
 	}
 
 	public void updateTable(GameEngine engine) {
-		// aggiorna info bar
-		direction.setText(engine.isClockwise() ? "↺" : "↻");
+		direction.setText(engine.isClockwise() ? "↻" : "↺");
 		lblCurrentPlayer.setText("Turno di: " + engine.getCurrentPlayer().getName());
 
-		// pulisci tavolo
 		tablePane.getChildren().clear();
 
-		double cx = tablePane.getPrefWidth() / 2;
-		double cy = tablePane.getPrefHeight() / 2 - 60;
+		double coordinatex = tablePane.getPrefWidth() / 2;
+		double coordinatey = tablePane.getPrefHeight() / 2;
 
-		// ── Discard pile ────────────────────────────────────
-		String topFile = engine.getTopCard().getImageFileName();
+		buildCardsCenter(coordinatex, coordinatey, engine);
+		buildPlayerCircle(coordinatex, coordinatey, engine);
+	}
+
+	private void buildCardsCenter(double coordinatex, double coordinatey, GameEngine engine) {
+		String topCard = engine.getTopCard().getImageFileName();
 		ImageView discardView = new ImageView(new Image(
-			getClass().getResourceAsStream("/assets/cards/" + topFile)));
+			getClass().getResourceAsStream("/assets/cards/" + topCard)));
 		discardView.setFitHeight(120);
 		discardView.setPreserveRatio(true);
-		discardView.setLayoutX(cx + 20);
-		discardView.setLayoutY(cy - 60);
 
-		// bordo colorato se Wild
 		StackPane discardWrapper = new StackPane(discardView);
-		discardWrapper.setLayoutX(cx + 20);
-		discardWrapper.setLayoutY(cy - 60);
-		String colorHex = toHex(engine.getCurrentColor());
-			discardWrapper.setStyle("-fx-border-color: " + colorHex + 
-				"; -fx-border-width: 4; -fx-border-radius: 4; -fx-padding: 2;");
+		discardWrapper.setLayoutX(coordinatex + 20);
+		discardWrapper.setLayoutY(coordinatey - 80);
+		String colorHex = getColor(engine.getCurrentColor());
+		discardWrapper.setStyle("-fx-border-color: " + colorHex + 
+			"; -fx-border-width: 4;");
 
-		// ── Deck ────────────────────────────────────────────
-		btnDeck.setLayoutX(cx - 100);
-		btnDeck.setLayoutY(cy - 60);
+		btnDeck.setLayoutX(coordinatex - 100);
+		btnDeck.setLayoutY(coordinatey - 80);
 
 		tablePane.getChildren().addAll(btnDeck, discardWrapper);
+	}
 
-		// ── Giocatori in cerchio ─────────────────────────────
+	private void buildPlayerCircle(double coordinatex, double coordinatey, GameEngine engine) {
 		List<Player> players = engine.getPlayers();
 		int n = players.size();
-		double r = Math.min(cx, cy) * 0.60;  // raggio adattivo
+		double r = Math.min(coordinatex, coordinatey) * 0.7; 
 
 		for (int i = 0; i < n; i++) {
 			Player p = players.get(i);
 			double angle = (2 * Math.PI * i / n) - Math.PI / 2;
-			double x = cx + r * Math.cos(angle);
-			double y = cy + r * Math.sin(angle);
+			double x = coordinatex + r * Math.cos(angle);
+			double y = coordinatey + r * Math.sin(angle);
 
 			Label nameLabel = new Label(p.getName());
 			Label cardCount = new Label("" + p.getHandSize());
-			VBox seat = new VBox(4, nameLabel, cardCount);
+			Label points = new Label("points: " + p.getPoints());
+			VBox seat = new VBox(4, nameLabel, cardCount, points);
 			seat.setAlignment(Pos.CENTER);
 			seat.getStyleClass().add("player-seat");
 			if (p == engine.getCurrentPlayer()) {
@@ -256,12 +273,12 @@ public class Game {
 		}
 	}
 
-	private String toHex(CardColor color) {
+	private String getColor(CardColor color) {
 		return switch (color) {
-			case RED    -> "#e74c3c";
-			case YELLOW -> "#f1c40f";
-			case GREEN  -> "#27ae60";
-			case BLUE   -> "#2980b9";
+			case RED    -> "red";
+			case YELLOW -> "yellow";
+			case GREEN  -> "green";
+			case BLUE   -> "blue";
 			default     -> "transparent";
 		};
 	}
@@ -387,7 +404,7 @@ public class Game {
 	}
 
 	public void clearHumanHand() {
-		humanHand.getChildren().clear();
+		cards.getChildren().clear();
 	}
 
 	public void addCardToHand(Card card, Runnable onPlay) {
@@ -399,7 +416,7 @@ public class Game {
 		btn.setGraphic(image);
 		btn.getStyleClass().add("button-card");
 		btn.setOnAction(e -> onPlay.run());
-		humanHand.getChildren().add(btn);
+		cards.getChildren().add(btn);
 	}
 
 	public void showHumanHand() {
@@ -408,7 +425,7 @@ public class Game {
 	}
 
 	public void hideHumanHand() {
-		humanHand.getChildren().clear();
+		cards.getChildren().clear();
 		humanHand.setVisible(false);
 	}
 }

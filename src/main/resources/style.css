@@ -10,6 +10,11 @@
     -fx-background-color: #1d1d1d;
 }
 
+.overlay {
+    -fx-background-color: #1d1d1d95;
+
+}
+
 .bg-menu {
     -fx-background-image: url("assets/Menubackground.jpeg");
     -fx-background-size: cover;
@@ -25,10 +30,18 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Luckiest Guy";
     -fx-text-fill: white;
 }
+
+.label-direction {
+    -fx-font-size: 25pt;
+    -fx-font-family: "Luckiest Guy";
+    -fx-text-fill: rgb(0, 248, 50);
+    -fx-font-weight: bold;
+}
+
 
 .label-bright {
     -fx-font-size: 11pt;
@@ -46,7 +59,7 @@
 .label-error {
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-    -fx-font-size: 10pt;
+    -fx-font-size: 13pt;
 }
 
 .table-view {
@@ -131,7 +144,6 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, "Archivo Black", sans-serif;
     -fx-font-size: 15pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -187,7 +199,6 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-background-color: #13b21e;
-    -fx-font-family: "Segoe UI", Helvetica, "Archivo Black", sans-serif;
     -fx-font-size: 15pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -233,10 +244,66 @@
     -fx-translate-y: -4;
 }
 
+.button-uno {
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-max-width: 80px;
+    -fx-max-height: 80px;
+    -fx-background-color: rgb(64, 182, 0);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Luckiest Guy";
+}
+
+.button-uno .text {
+    -fx-fill: white;
+}
+
+.button-uno:hover {
+    -fx-background-color: #0e8816;
+    -fx-translate-y: 2;
+}
+
+.button-contest {
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: #cd9d2e;
+    -fx-font-size: 12pt;
+    -fx-min-width: 160px;
+    -fx-min-height: 40px;
+    -fx-max-width: 160px;
+    -fx-max-height: 40px;
+}
+
+.button-contest:hover {
+    -fx-background-color: #8a691d;
+}
+
+.button-pass {
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: #e65b5b;
+    -fx-font-size: 12pt;
+    -fx-min-width: 160px;
+    -fx-min-height: 40px;
+    -fx-max-width: 160px;
+    -fx-max-height: 40px;
+}
+
+.button-pass:hover {
+    -fx-background-color: #952b2b;
+}
+
 .color-btn-red {
     -fx-background-color: red;
     -fx-text-fill: #ffffff;
     -fx-background-radius: 15;
+}
+
+.color-btn-red:hover {
+    -fx-background-color: rgb(160, 17, 17);
 }
 
 .color-btn-blue {
@@ -246,6 +313,10 @@
     -fx-border-radius: 5;
 }
 
+.color-btn-blue:hover {
+    -fx-background-color: rgb(11, 11, 152);
+}
+
 .color-btn-yellow {
     -fx-background-color: yellow;
     -fx-text-fill: #ffffff;
@@ -253,11 +324,19 @@
     -fx-border-radius: 5;
 }
 
+.color-btn-yellow:hover {
+    -fx-background-color: rgb(162, 162, 12);
+}
+
 .color-btn-green {
     -fx-background-color: green;
     -fx-text-fill: #ffffff;
     -fx-border-radius: 15;
     -fx-background-radius: 15;
+}
+
+.color-btn-green:hover {
+    -fx-background-color: rgb(8, 93, 8);
 }
 
 .slider .track {
@@ -271,4 +350,69 @@
     -fx-background-color: #f0f0f0;
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
+}
+
+.player-seat {
+    -fx-background-color: rgba(0, 0, 0, 0.349);
+    -fx-background-radius: 5;
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+    -fx-min-width: 70;
+}
+
+.player-seat .label {
+    -fx-text-fill: white;
+    -fx-font-size: 13pt;
+}
+
+.player-active .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.player-active {
+    -fx-border-color: #0ab62f;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+}
+
+.button-menu {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #ffffff 0%, #d1d1d1 100%),
+        #c3c1c1,
+        #f4e4dc,
+        radial-gradient(center 50% 50%, radius 100%, #e0d6d1, #c2c1c1);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-text-fill: #000000;
+}
+.button-menu:hover {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #ffffff 0%, #d1d1d1 100%),
+        #c3c1c1,
+        #f4e4dc,
+        radial-gradient(center 50% 50%, radius 100%, #e0d6d1, #c2c1c1);
+}
+.button-menu:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+.button-menu Text {
+    -fx-fill: rgb(0, 0, 0);
+    -fx-font-size: 12pt;
+}
+
+.hand-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.hand-scroll .viewport {
+    -fx-background-color: transparent;
 }

@@ -76,7 +76,7 @@ public abstract class Player {
 	 *                               non ha una sola carta in mano
 	 */
 	public void setUnoCalled(boolean unoCalled) {
-		if (unoCalled && !hasUno()) {
+		if (unoCalled && hand.size() > 2) {
 			throw new IllegalStateException("Non puoi chiamare UNO se non hai una sola carta in mano!");
 		}
 		this.unoCalled = unoCalled;
