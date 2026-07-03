@@ -29,7 +29,7 @@ public interface BotStrategy {
 	/**
 	 * Sceglie quale colore dichiarare quando gioca una carta Wild.
 	 * 
-	 * @param hand la mano del bot
+	 * @param hand         la mano del bot
 	 * @param currentColor il colore attuale
 	 *
 	 * @return il {@link CardColor} scelto dal bot.
@@ -45,7 +45,6 @@ public interface BotStrategy {
 	 * @return true se il bot decide di giocarla, false altrimenti.
 	 */
 	boolean shouldPlayDrawnCard(List<Card> hand, Card topCard, CardColor currentColor);
-
 
 	/**
 	 * Sceglie se sfidare il WILD DRAW FOUR.

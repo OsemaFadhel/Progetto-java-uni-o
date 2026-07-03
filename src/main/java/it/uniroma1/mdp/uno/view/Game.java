@@ -2,10 +2,10 @@ package it.uniroma1.mdp.uno.view;
 
 import java.util.List;
 
-import it.uniroma1.mdp.uno.model.cards.Card;
-import it.uniroma1.mdp.uno.model.cards.CardColor;
 import it.uniroma1.mdp.uno.model.GameEngine;
 import it.uniroma1.mdp.uno.model.GameMode;
+import it.uniroma1.mdp.uno.model.cards.Card;
+import it.uniroma1.mdp.uno.model.cards.CardColor;
 import it.uniroma1.mdp.uno.model.players.Player;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -23,7 +24,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -60,7 +60,6 @@ public class Game {
 	private final HBox cards = new HBox(6);
 	private final ScrollPane humanHand = new ScrollPane(cards);
 
-
 	private final Button btnDeck;
 	private final Label lblNotification = new Label();
 
@@ -71,7 +70,7 @@ public class Game {
 		this.gameOverOverlay = buildGameOverOverlay();
 		this.menuOverlay = buildMenuOverlay();
 		this.lblNotification.setVisible(false);
-		this.lblNotification.getStyleClass().add("lable-error");
+		this.lblNotification.getStyleClass().add("label-error");
 		this.btnDeck = buildButtonDeck();
 		this.direction.getStyleClass().add("label-direction");
 		this.btnMenu.getStyleClass().add("button-menu");
@@ -88,13 +87,12 @@ public class Game {
 	private Button buildButtonDeck() {
 		Button btn = new Button();
 
-		ImageView deckImg = new ImageView(new Image(
-			getClass().getResourceAsStream("/assets/cards/BACK.JPG")));
+		ImageView deckImg = new ImageView(new Image(getClass().getResourceAsStream("/assets/cards/BACK.JPG")));
 		deckImg.setFitHeight(120);
-		deckImg.setPreserveRatio(true);	
+		deckImg.setPreserveRatio(true);
 		btn.setGraphic(deckImg);
 		btn.getStyleClass().add("button-card");
-		
+
 		return btn;
 	}
 
@@ -204,7 +202,6 @@ public class Game {
 		HBox bottomBtns = new HBox(6, btnContestUno, btnPass);
 		bottomBtns.setAlignment(Pos.CENTER);
 
-
 		VBox actionBtns = new VBox(6, btnUno, bottomBtns);
 		actionBtns.setAlignment(Pos.CENTER);
 		actionBtns.setPadding(new Insets(0, 10, 0, 10));
@@ -234,8 +231,7 @@ public class Game {
 
 	private void buildCardsCenter(double coordinatex, double coordinatey, GameEngine engine) {
 		String topCard = engine.getTopCard().getImageFileName();
-		ImageView discardView = new ImageView(new Image(
-			getClass().getResourceAsStream("/assets/cards/" + topCard)));
+		ImageView discardView = new ImageView(new Image(getClass().getResourceAsStream("/assets/cards/" + topCard)));
 		discardView.setFitHeight(120);
 		discardView.setPreserveRatio(true);
 
@@ -243,8 +239,7 @@ public class Game {
 		discardWrapper.setLayoutX(coordinatex + 10);
 		discardWrapper.setLayoutY(coordinatey - 80);
 		String colorHex = getColor(engine.getCurrentColor());
-		discardWrapper.setStyle("-fx-border-color: " + colorHex + 
-			"; -fx-border-width: 4;");
+		discardWrapper.setStyle("-fx-border-color: " + colorHex + "; -fx-border-width: 4;");
 
 		btnDeck.setLayoutX(coordinatex - 80);
 		btnDeck.setLayoutY(coordinatey - 80);
@@ -255,7 +250,7 @@ public class Game {
 	private void buildPlayerCircle(double coordinatex, double coordinatey, GameEngine engine) {
 		List<Player> players = engine.getPlayers();
 		int n = players.size();
-		double r = Math.min(coordinatex, coordinatey) * 0.7; 
+		double r = Math.min(coordinatex, coordinatey) * 0.7;
 
 		for (int i = 0; i < n; i++) {
 			Player p = players.get(i);
@@ -286,11 +281,11 @@ public class Game {
 
 	private String getColor(CardColor color) {
 		return switch (color) {
-			case RED    -> "red";
-			case YELLOW -> "yellow";
-			case GREEN  -> "green";
-			case BLUE   -> "blue";
-			default     -> "transparent";
+		case RED -> "red";
+		case YELLOW -> "yellow";
+		case GREEN -> "green";
+		case BLUE -> "blue";
+		default -> "transparent";
 		};
 	}
 
@@ -345,7 +340,7 @@ public class Game {
 	public Button getButtonExitGame() {
 		return btnExitGame;
 	}
-	
+
 	public Button getButtonCloseMenu() {
 		return btnCloseMenu;
 	}
@@ -419,8 +414,8 @@ public class Game {
 	}
 
 	public void addCardToHand(Card card, Runnable onPlay) {
-		ImageView image = new ImageView(new Image(
-			getClass().getResourceAsStream("/assets/cards/" + card.getImageFileName())));
+		ImageView image = new ImageView(
+				new Image(getClass().getResourceAsStream("/assets/cards/" + card.getImageFileName())));
 		image.setPreserveRatio(true);
 		image.setFitHeight(120);
 		Button btn = new Button();

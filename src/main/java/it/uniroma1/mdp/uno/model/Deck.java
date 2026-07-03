@@ -13,6 +13,8 @@ import it.uniroma1.mdp.uno.model.cards.WildCard;
 /**
  * Rappresenta un mazzo di carte Uno. Il mazzo contiene tutte le carte Uno
  * standard e fornisce metodi per mescolare, pescare e rifornire il mazzo.
+ * 
+ * @author Osema Fadhel
  */
 class Deck {
 	private Stack<Card> cards;

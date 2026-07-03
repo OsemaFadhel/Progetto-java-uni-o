@@ -2,9 +2,12 @@ package it.uniroma1.mdp.uno.view;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
+/**
+ * Classe di utilità per la gestione dello stile dell'interfaccia grafica.
+ * 
+ * @author Osema Fadhel
+ */
 public class Style {
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;

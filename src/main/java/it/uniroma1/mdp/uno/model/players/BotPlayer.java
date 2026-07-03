@@ -25,6 +25,7 @@ public class BotPlayer extends Player {
 		this.strategy = strategy;
 	}
 
+	@Override
 	public boolean isBot() {
 		return true;
 	}
@@ -45,8 +46,8 @@ public class BotPlayer extends Player {
 	}
 
 	/**
-	 * Sceglie quale colore dichiarare quando gioca una carta Wild, 
-	 * in base alla strategia del bot
+	 * Sceglie quale colore dichiarare quando gioca una carta Wild, in base alla
+	 * strategia del bot
 	 * 
 	 * @return il {@link CardColor} scelto dal bot.
 	 */
@@ -64,7 +65,8 @@ public class BotPlayer extends Player {
 	}
 
 	/**
-	 * Sceglie se sfidare o meno una carta WILD DRAW FOUR, in base alla strategia del bot
+	 * Sceglie se sfidare o meno una carta WILD DRAW FOUR, in base alla strategia
+	 * del bot
 	 * 
 	 * @return true se il bot decide di sfidare, false altrimenti.
 	 */

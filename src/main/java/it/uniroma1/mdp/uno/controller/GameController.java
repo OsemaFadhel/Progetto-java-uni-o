@@ -3,8 +3,8 @@ package it.uniroma1.mdp.uno.controller;
 import it.uniroma1.mdp.uno.model.GameEngine;
 import it.uniroma1.mdp.uno.model.GameMode;
 import it.uniroma1.mdp.uno.model.GameState;
-import it.uniroma1.mdp.uno.model.cards.CardColor;
 import it.uniroma1.mdp.uno.model.cards.Card;
+import it.uniroma1.mdp.uno.model.cards.CardColor;
 import it.uniroma1.mdp.uno.model.players.BotPlayer;
 import it.uniroma1.mdp.uno.model.players.HumanPlayer;
 import it.uniroma1.mdp.uno.model.players.Player;
@@ -87,8 +87,8 @@ public class GameController {
 	}
 
 	/**
-	 * Inizializza e mostra la vista di gioco UNO, gestendo le interazioni dell'utente 
-	 * con la partita.
+	 * Inizializza e mostra la vista di gioco UNO, gestendo le interazioni
+	 * dell'utente con la partita.
 	 */
 	public void showGame() {
 		gameView = new Game();
@@ -99,7 +99,7 @@ public class GameController {
 				handleStateChange();
 			} catch (Exception ex) {
 				gameView.showError(ex.getMessage());
-			}		
+			}
 		});
 
 		gameView.getButtonUno().setOnAction(e -> {
@@ -107,7 +107,7 @@ public class GameController {
 				engine.callUno(engine.getCurrentPlayer());
 			} catch (Exception ex) {
 				gameView.showError(ex.getMessage());
-			}		
+			}
 		});
 
 		gameView.getButtonContestUno().setOnAction(e -> {
@@ -253,9 +253,10 @@ public class GameController {
 		case "Bot Casuale":
 			player = new BotPlayer(name, new RandomBotStrategy());
 			break;
-		/*case "Bot Avanzato":
-			player = new BotPlayer(name, new AdvancedBotStrategy());
-			break;*/
+		/*
+		 * case "Bot Avanzato": player = new BotPlayer(name, new AdvancedBotStrategy());
+		 * break;
+		 */
 		default:
 			player = new HumanPlayer(name);
 		}
@@ -265,17 +266,9 @@ public class GameController {
 	}
 
 	/**
-	 * Rimuove un giocatore dal gioco UNO.
-	 * 
-	 * @param player il giocatore da rimuovere
-	 */
-	public void removePlayer(Player player) {
-		engine.removePlayer(player);
-	}
-
-	/**
 	 * Gestisce i cambiamenti di stato del gioco UNO e aggiorna la vista di
 	 * conseguenza.
+	 * 
 	 */
 	public void handleStateChange() {
 		gameView.updateTable(engine);
@@ -294,12 +287,11 @@ public class GameController {
 					gameView.clearHumanHand();
 					for (Card c : engine.getCurrentPlayer().getHand()) {
 						gameView.addCardToHand(c, () -> {
-							try { 
-								engine.playCard(engine.getCurrentPlayer(), c); 
-								handleStateChange(); 
-							}
-							catch (Exception ex) { 
-								gameView.showError(ex.getMessage()); 
+							try {
+								engine.playCard(engine.getCurrentPlayer(), c);
+								handleStateChange();
+							} catch (Exception ex) {
+								gameView.showError(ex.getMessage());
 							}
 						});
 					}
@@ -313,11 +305,11 @@ public class GameController {
 			break;
 		case WAITING_FOR_CHALLENGE:
 			Player target = engine.getTargetPlayer();
-			
+
 			if (target.isBot()) {
 				try {
 					BotPlayer bot = (BotPlayer) target;
-					boolean challenge = bot.shouldChallenge(engine.getCurrentPlayer().getHandSize()); 
+					boolean challenge = bot.shouldChallenge(engine.getCurrentPlayer().getHandSize());
 					engine.solveChallenge(challenge);
 					handleStateChange();
 				} catch (Exception ex) {
@@ -351,19 +343,18 @@ public class GameController {
 			BotPlayer bot = (BotPlayer) engine.getCurrentPlayer();
 			Card card = bot.chooseCardPlay(engine.getTopCard(), engine.getCurrentColor());
 			try {
-				if (card == null) { 
+				if (card == null) {
 					engine.drawDuringTurn(bot);
 					if (bot.shouldPlayDrawnCard(engine.getTopCard(), engine.getCurrentColor())) {
 						engine.playCard(bot, bot.getHand().get(bot.getHand().size() - 1));
 					} else {
-						engine.passTurn(); 
+						engine.passTurn();
 					}
-				}
-				else {
+				} else {
 					engine.playCard(bot, card);
 				}
-			} catch (Exception ex) { 
-				gameView.showError(ex.getMessage()); 
+			} catch (Exception ex) {
+				gameView.showError(ex.getMessage());
 			}
 			handleStateChange();
 		});

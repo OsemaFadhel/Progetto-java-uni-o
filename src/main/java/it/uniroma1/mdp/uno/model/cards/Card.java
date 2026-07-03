@@ -11,7 +11,7 @@ public abstract class Card {
 	protected CardColor color;
 	protected CardValue value;
 
-	public Card(CardColor color, CardValue value) {
+	protected Card(CardColor color, CardValue value) {
 		this.color = color;
 		this.value = value;
 	}

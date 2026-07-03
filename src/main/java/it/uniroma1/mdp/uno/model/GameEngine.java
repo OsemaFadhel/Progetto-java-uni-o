@@ -411,7 +411,7 @@ public class GameEngine {
 	/**
 	 * Restituisce il giocatore precedente.
 	 * 
-	 * @return
+	 * @return {@link Player} Il giocatore precedente
 	 */
 	private Player getPreviousPlayer() {
 		int targetIndex;
@@ -445,7 +445,7 @@ public class GameEngine {
 		if (player.getHandSize() == 1 || player.getHandSize() == 2) {
 			player.setUnoCalled(true);
 		} else {
-			throw new IllegalStateException("Non puoi chiamare UNO se non hai due carte in mano.");
+			throw new IllegalStateException("Non puoi chiamare UNO con più di due carte in mano.");
 		}
 	}
 
@@ -453,11 +453,12 @@ public class GameEngine {
 	 * Se un giocatore ha una sola carta in mano e non ha chiamato "UNO", deve
 	 * pescare due carte come penalità se contestato.
 	 * 
-	 * @param player
+	 * @return true se il giocatore precedente ha una carta in mano e non ha
+	 *         chiamato UNO, false altrimenti
 	 */
 	public boolean contestUno() {
 		Player prevPlayer = getPreviousPlayer();
-		if (prevPlayer.hasUno() && !prevPlayer.isUnoCalled()) {
+		if (prevPlayer.hasOneCard() && !prevPlayer.isUnoCalled()) {
 			drawCards(prevPlayer, 2);
 			return true;
 		}

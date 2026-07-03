@@ -3,6 +3,8 @@ package it.uniroma1.mdp.uno.model.cards;
 /**
  * Rappresenta i valori delle carte Uno. Include numeri da 0 a 9, carte azione
  * (Skip, Reverse, Draw Two) e carte jolly (Wild, Wild Draw Four).
+ * 
+ * @author Osema Fadhel
  */
 public enum CardValue {
 	ZERO("0"), ONE("1"), TWO("2"), THREE("3"), FOUR("4"), FIVE("5"), SIX("6"), SEVEN("7"), EIGHT("8"), NINE("9"),

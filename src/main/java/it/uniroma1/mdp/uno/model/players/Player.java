@@ -24,7 +24,7 @@ public abstract class Player {
 	 * 
 	 * @param name il nome del giocatore
 	 */
-	public Player(String name) {
+	protected Player(String name) {
 		if (name.length() > 8) {
 			throw new IllegalArgumentException("Nome troppo lungo");
 		}
@@ -85,7 +85,7 @@ public abstract class Player {
 	/**
 	 * Restituisce lo stato di "UNO" chiamato.
 	 * 
-	 * @return
+	 * @return true se il giocatore ha chiamato UNO, false altrimenti
 	 */
 	public boolean isUnoCalled() {
 		return unoCalled;
@@ -121,11 +121,11 @@ public abstract class Player {
 	}
 
 	/**
-	 * Verifica se il giocatore ha UNO (ovvero se ha una sola carta in mano).
+	 * Verifica se il giocatore ha una carta.
 	 * 
-	 * @return true se il giocatore ha UNO, false altrimenti
+	 * @return true se il giocatore ha una carta, false altrimenti
 	 */
-	public boolean hasUno() {
+	public boolean hasOneCard() {
 		return this.hand.size() == 1;
 	}
 
