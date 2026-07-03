@@ -288,19 +288,24 @@ public class GameController {
 				gameView.hideHumanHand();
 				handleBotTurn();
 			} else {
-				gameView.clearHumanHand();
-				for (Card c : engine.getCurrentPlayer().getHand()) {
-					gameView.addCardToHand(c, () -> {
-						try { 
-							engine.playCard(engine.getCurrentPlayer(), c); 
-							handleStateChange(); 
-						}
-						catch (Exception ex) { 
-							gameView.showError(ex.getMessage()); 
-						}
-					});
-				}
-				gameView.showHumanHand();
+				gameView.hideHumanHand();
+				PauseTransition pause = new PauseTransition(Duration.seconds(3));
+				pause.setOnFinished(e -> {
+					gameView.clearHumanHand();
+					for (Card c : engine.getCurrentPlayer().getHand()) {
+						gameView.addCardToHand(c, () -> {
+							try { 
+								engine.playCard(engine.getCurrentPlayer(), c); 
+								handleStateChange(); 
+							}
+							catch (Exception ex) { 
+								gameView.showError(ex.getMessage()); 
+							}
+						});
+					}
+					gameView.showHumanHand();
+				});
+				pause.play();
 			}
 			break;
 		case WAITING_FOR_COLOR_CHOICE:
