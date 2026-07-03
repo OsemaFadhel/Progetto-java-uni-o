@@ -5,8 +5,15 @@ import it.uniroma1.mdp.uno.model.players.BotStrategy;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 
+ * RandomBotStrategy
+ * 
+ * @author Osema Fadhel
+ */
 public class RandomBotStrategy implements BotStrategy {
 	private final Random random = new Random();
+	
 	@Override
 	public Card chooseCard(List<Card> hand, Card topCard, CardColor currentColor) {
 		List<Card> playable = hand.stream()
@@ -14,9 +21,24 @@ public class RandomBotStrategy implements BotStrategy {
 			.collect(Collectors.toList());
 		return playable.isEmpty() ? null : playable.get(random.nextInt(playable.size()));
 	}
+	
 	@Override
-	public CardColor chooseColor(List<Card> hand) {
+	public CardColor chooseColor(List<Card> hand, CardColor currentColor) {
 		CardColor[] colors = {CardColor.RED, CardColor.YELLOW, CardColor.GREEN, CardColor.BLUE};
-		return colors[new Random().nextInt(4)];
+		return colors[random.nextInt(4)];
+	}
+
+	@Override
+	public boolean shouldPlayDrawnCard(List<Card> hand, Card topCard, CardColor currentColor) {
+		if (hand.get(hand.size() - 1).isPlayable(topCard, currentColor))
+		{
+			return random.nextBoolean();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean shouldChallenge(List<Card> hand, int targetHand){
+		return random.nextBoolean();
 	}
 }

@@ -30,7 +30,7 @@ public class BotPlayer extends Player {
 	}
 
 	/**
-	 * Sceglie quale carta giocare.
+	 * Sceglie quale carta giocare, in base alla strategia del bot.
 	 * 
 	 * Il bot utilizza la sua strategia per decidere quale carta giocare.
 	 * 
@@ -40,21 +40,35 @@ public class BotPlayer extends Player {
 	 * @return la {@link Card} scelta dal bot da giocare, o null se il bot deve
 	 *         pescare.
 	 */
-	public Card makePlay(Card topCard, CardColor currentColor) {
+	public Card chooseCardPlay(Card topCard, CardColor currentColor) {
 		return strategy.chooseCard(this.hand, topCard, currentColor);
 	}
 
 	/**
-	 * Sceglie quale colore dichiarare quando gioca una carta Wild.
+	 * Sceglie quale colore dichiarare quando gioca una carta Wild, 
+	 * in base alla strategia del bot
 	 * 
 	 * @return il {@link CardColor} scelto dal bot.
 	 */
-	public CardColor chooseWildColor() {
-		return strategy.chooseColor(this.hand);
+	public CardColor chooseWildColor(CardColor currentColor) {
+		return strategy.chooseColor(this.hand, currentColor);
 	}
 
-	/* deve essere abstract? controllare se deve anche essere private o protected anche in tutti gli altri metodi */
-	public boolean shouldChallenge() {
-	
+	/**
+	 * Sceglie se giocare la carta pescata, in base alla strategia del bot
+	 *
+	 * @return true se il bot decide di giocarla, false altrimenti.
+	 */
+	public boolean shouldPlayDrawnCard(Card topCard, CardColor currentColor) {
+		return strategy.shouldPlayDrawnCard(this.hand, topCard, currentColor);
+	}
+
+	/**
+	 * Sceglie se sfidare o meno una carta WILD DRAW FOUR, in base alla strategia del bot
+	 * 
+	 * @return true se il bot decide di sfidare, false altrimenti.
+	 */
+	public boolean shouldChallenge(int targetHand) {
+		return strategy.shouldChallenge(this.hand, targetHand);
 	}
 }

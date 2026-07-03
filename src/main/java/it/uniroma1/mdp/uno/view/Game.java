@@ -5,6 +5,7 @@ import java.util.List;
 import it.uniroma1.mdp.uno.model.cards.Card;
 import it.uniroma1.mdp.uno.model.cards.CardColor;
 import it.uniroma1.mdp.uno.model.GameEngine;
+import it.uniroma1.mdp.uno.model.GameMode;
 import it.uniroma1.mdp.uno.model.players.Player;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
@@ -24,7 +25,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.scene.image.ImageView;
 
-
+/**
+ * 
+ * Game
+ * 
+ * @author Osema Fadhel
+ */
 public class Game {
 	private final Scene scene;
 	private final Pane tablePane = new Pane();
@@ -234,13 +240,13 @@ public class Game {
 		discardView.setPreserveRatio(true);
 
 		StackPane discardWrapper = new StackPane(discardView);
-		discardWrapper.setLayoutX(coordinatex + 20);
+		discardWrapper.setLayoutX(coordinatex + 10);
 		discardWrapper.setLayoutY(coordinatey - 80);
 		String colorHex = getColor(engine.getCurrentColor());
 		discardWrapper.setStyle("-fx-border-color: " + colorHex + 
 			"; -fx-border-width: 4;");
 
-		btnDeck.setLayoutX(coordinatex - 100);
+		btnDeck.setLayoutX(coordinatex - 80);
 		btnDeck.setLayoutY(coordinatey - 80);
 
 		tablePane.getChildren().addAll(btnDeck, discardWrapper);
@@ -260,6 +266,11 @@ public class Game {
 			Label nameLabel = new Label(p.getName());
 			Label cardCount = new Label("" + p.getHandSize());
 			Label points = new Label("points: " + p.getPoints());
+			if (engine.getGameMode() == GameMode.POINTS_GAME) {
+				points.setVisible(true);
+			} else {
+				points.setVisible(false);
+			}
 			VBox seat = new VBox(4, nameLabel, cardCount, points);
 			seat.setAlignment(Pos.CENTER);
 			seat.getStyleClass().add("player-seat");

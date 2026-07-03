@@ -8,7 +8,6 @@ import it.uniroma1.mdp.uno.model.cards.Card;
 import it.uniroma1.mdp.uno.model.players.BotPlayer;
 import it.uniroma1.mdp.uno.model.players.HumanPlayer;
 import it.uniroma1.mdp.uno.model.players.Player;
-import it.uniroma1.mdp.uno.model.players.strategies.AdvancedBotStrategy;
 import it.uniroma1.mdp.uno.model.players.strategies.RandomBotStrategy;
 import it.uniroma1.mdp.uno.view.Game;
 import it.uniroma1.mdp.uno.view.Menu;
@@ -17,7 +16,11 @@ import javafx.animation.PauseTransition;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
+/**
+ * Gestisce le interazioni tra il modello (GameEngine) e le viste (Menu e Game).
+ * 
+ * @author Osema Fadhel
+ */
 public class GameController {
 	private GameEngine engine;
 	private Stage stage;
@@ -83,6 +86,10 @@ public class GameController {
 		stage.setScene(menuView.getScene());
 	}
 
+	/**
+	 * Inizializza e mostra la vista di gioco UNO, gestendo le interazioni dell'utente 
+	 * con la partita.
+	 */
 	public void showGame() {
 		gameView = new Game();
 
@@ -246,9 +253,9 @@ public class GameController {
 		case "Bot Casuale":
 			player = new BotPlayer(name, new RandomBotStrategy());
 			break;
-		case "Bot Avanzato":
+		/*case "Bot Avanzato":
 			player = new BotPlayer(name, new AdvancedBotStrategy());
-			break;
+			break;*/
 		default:
 			player = new HumanPlayer(name);
 		}
@@ -275,6 +282,7 @@ public class GameController {
 
 		switch (engine.getGameState()) {
 		case NOT_STARTED:
+			break;
 		case WAITING_FOR_PLAYER_ACTION:
 			if (engine.getCurrentPlayer().isBot()) {
 				gameView.hideHumanHand();
@@ -302,7 +310,14 @@ public class GameController {
 			Player target = engine.getTargetPlayer();
 			
 			if (target.isBot()) {
-
+				try {
+					BotPlayer bot = (BotPlayer) target;
+					boolean challenge = bot.shouldChallenge(engine.getCurrentPlayer().getHandSize()); 
+					engine.solveChallenge(challenge);
+					handleStateChange();
+				} catch (Exception ex) {
+					gameView.showError(ex.getMessage());
+				}
 			} else {
 				gameView.showChallengeOverlay();
 			}
@@ -326,14 +341,18 @@ public class GameController {
 	 * del gioco.
 	 */
 	public void handleBotTurn() {
-		PauseTransition pause = new PauseTransition(Duration.millis(800));
+		PauseTransition pause = new PauseTransition(Duration.seconds(1));
 		pause.setOnFinished(e -> {
 			BotPlayer bot = (BotPlayer) engine.getCurrentPlayer();
-			Card card = bot.makePlay(engine.getTopCard(), engine.getCurrentColor());
+			Card card = bot.chooseCardPlay(engine.getTopCard(), engine.getCurrentColor());
 			try {
 				if (card == null) { 
-					engine.drawDuringTurn(bot); 
-					engine.passTurn(); 
+					engine.drawDuringTurn(bot);
+					if (bot.shouldPlayDrawnCard(engine.getTopCard(), engine.getCurrentColor())) {
+						engine.playCard(bot, bot.getHand().get(bot.getHand().size() - 1));
+					} else {
+						engine.passTurn(); 
+					}
 				}
 				else {
 					engine.playCard(bot, card);

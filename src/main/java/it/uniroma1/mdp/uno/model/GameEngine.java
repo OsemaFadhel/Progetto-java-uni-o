@@ -262,17 +262,19 @@ public class GameEngine {
 			return;
 		}
 
+		/*
+		 * maybe change with shouldCallUno()
+		 */
 		if (player.isBot() && player.getHandSize() == 1) {
 			callUno(player);
 		}
 
 		if (card.getColor() == CardColor.WILD) {
-			// For Wild cards, the player must choose a color
 			this.colorBeforeWild = this.currentColor;
 
 			if (player.isBot()) {
 				BotPlayer botPlayer = (BotPlayer) player;
-				this.currentColor = botPlayer.chooseWildColor();
+				this.currentColor = botPlayer.chooseWildColor(currentColor);
 				if (card.getValue() == CardValue.WILD_DRAW_FOUR) {
 					this.gameState = GameState.WAITING_FOR_CHALLENGE;
 					return;
@@ -281,11 +283,6 @@ public class GameEngine {
 				}
 			} else {
 				this.gameState = GameState.WAITING_FOR_COLOR_CHOICE;
-				/*
-				 * For Human players, controller will do the job remember to add a timer like 10
-				 * seconds to choose a color, otherwise the game will automatically choose a
-				 * color for the player (randomly)
-				 */
 				return;
 			}
 		} else {

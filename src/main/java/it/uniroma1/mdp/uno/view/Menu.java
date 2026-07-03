@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * Rappresenta il menu principale del gioco UNO, schermata iniziale.
+ * 
+ * @author Osema Fadhel
  */
 public class Menu {
 	private final Scene scene;
