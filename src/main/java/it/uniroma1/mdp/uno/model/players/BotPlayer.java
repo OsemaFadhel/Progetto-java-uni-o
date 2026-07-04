@@ -75,7 +75,8 @@ public class BotPlayer extends Player {
 	}
 
 	/**
-	 * Sceglie se contestare o meno un avversario che non ha dichiarato UNO, in base alla strategia
+	 * Sceglie se contestare o meno un avversario che non ha dichiarato UNO, in base
+	 * alla strategia
 	 * 
 	 * @return
 	 */

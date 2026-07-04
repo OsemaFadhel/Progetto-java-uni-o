@@ -37,14 +37,23 @@ public abstract class Player {
 		this.unoCalled = false;
 	}
 
+	/**
+	 * @return {@link String}
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return {@code List<Card>}
+	 */
 	public List<Card> getHand() {
 		return Collections.unmodifiableList(hand);
 	}
 
+	/**
+	 * @return {@code int}
+	 */
 	public int getPoints() {
 		return points;
 	}
