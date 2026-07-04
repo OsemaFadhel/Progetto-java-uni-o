@@ -307,7 +307,7 @@ public class Game {
 		StackPane discardWrapper = new StackPane(discardView);
 		discardWrapper.setLayoutX(coordinatex + 10);
 		discardWrapper.setLayoutY(coordinatey - 80);
-		String colorHex = getColor(engine.getCurrentColor());
+		String colorHex = Style.getColor(engine.getCurrentColor());
 		discardWrapper.setStyle("-fx-border-color: " + colorHex + "; -fx-border-width: 4;");
 
 		btnDeck.setLayoutX(coordinatex - 80);
@@ -354,23 +354,6 @@ public class Game {
 
 			tablePane.getChildren().add(seat);
 		}
-	}
-
-	/**
-	 * Restituisce il colore in formato stringa in base al {@link CardColor}
-	 * fornito.
-	 * 
-	 * @param color
-	 * @return {@link String}
-	 */
-	private String getColor(CardColor color) {
-		return switch (color) {
-		case RED -> "red";
-		case YELLOW -> "yellow";
-		case GREEN -> "green";
-		case BLUE -> "blue";
-		default -> "transparent";
-		};
 	}
 
 	/**

@@ -34,6 +34,9 @@ public class GameEngine {
 	private int pointThreshold;
 	private boolean madePlay;
 
+	/**
+	 * Costruttore per inizializzare il motore di gioco UNO.
+	 */
 	public GameEngine() {
 		this.players = new ArrayList<>();
 		this.discardPile = new Stack<>();
@@ -43,34 +46,58 @@ public class GameEngine {
 		this.madePlay = false;
 	}
 
+	/**
+	 * @return {@link GameState}
+	 */
 	public GameState getGameState() {
 		return gameState;
 	}
 
+	/**
+	 * @return {@code List<Player>}
+	 */
 	public List<Player> getPlayers() {
 		return Collections.unmodifiableList(players);
 	}
 
+	/**
+	 * @return {@link Player}
+	 */
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayerIndex);
 	}
 
+	/**
+	 * @return {@link Card}
+	 */
 	public Card getTopCard() {
 		return discardPile.peek();
 	}
 
+	/**
+	 * @return {@link CardColor}
+	 */
 	public CardColor getCurrentColor() {
 		return currentColor;
 	}
 
+	/**
+	 * @return {@link CardColor}
+	 */
 	public CardColor getColorBeforeWild() {
 		return colorBeforeWild;
 	}
 
+	/**
+	 * @return true se il gioco procede in senso orario, false altrimenti
+	 */
 	public boolean isClockwise() {
 		return isClockwise;
 	}
 
+	/**
+	 * @return {@link GameMode}
+	 */
 	public GameMode getGameMode() {
 		return this.gameMode;
 	}

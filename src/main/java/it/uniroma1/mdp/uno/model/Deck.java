@@ -98,6 +98,11 @@ class Deck {
 		return cards.pop();
 	}
 
+	/**
+	 * Verifica se il mazzo è vuoto.
+	 * 
+	 * @return true se il mazzo è vuoto, false altrimenti
+	 */
 	public boolean isEmpty() {
 		return cards.isEmpty();
 	}

@@ -28,6 +28,12 @@ public class GameController {
 	private Menu menuView;
 	private Game gameView;
 
+	/**
+	 * Crea un nuovo GameController con il motore di gioco e la finestra principale.
+	 * 
+	 * @param engine
+	 * @param primaryStage
+	 */
 	public GameController(GameEngine engine, Stage primaryStage) {
 		this.engine = engine;
 		this.stage = primaryStage;

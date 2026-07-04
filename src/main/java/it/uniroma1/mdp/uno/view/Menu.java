@@ -192,66 +192,111 @@ public class Menu {
 		btnStart.setDisable(playerEntries.size() < 2);
 	}
 
+	/**
+	 * @return {@link Scene}
+	 */
 	public Scene getScene() {
 		return scene;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonSingleGame() {
 		return btnSingleGame;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonPointsGame() {
 		return btnPointsGame;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonAddPlayer() {
 		return btnAddPlayer;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonStart() {
 		return btnStart;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonConfirm() {
 		return btnConfirm;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonUndo() {
 		return btnUndo;
 	}
 
+	/**
+	 * @return {@link String}
+	 */
 	public String getNome() {
 		return tfName.getText().trim();
 	}
 
+	/**
+	 * @return {@link String}
+	 */
 	public String getTipo() {
 		return cbType.getValue();
 	}
 
+	/**
+	 * @return {@link int}
+	 */
 	public int getThreshold() {
 		return (int) sliderThreshold.getValue();
 	}
 
+	/**
+	 * Mostra la sezione giocatori nel menu principale.
+	 */
 	public void showSectionPlayers() {
 		secPlayers.setVisible(true);
 		secPlayers.setManaged(true);
 	}
 
+	/**
+	 * Nasconde la sezione giocatori nel menu principale.
+	 */
 	public void hideSectionPlayers() {
 		secPlayers.setVisible(false);
 		secPlayers.setManaged(false);
 	}
 
+	/**
+	 * Mostra la sezione soglia punti nel menu principale.
+	 */
 	public void showThreshold() {
 		secThreshold.setVisible(true);
 		secThreshold.setManaged(true);
 	}
 
+	/**
+	 * Nasconde la sezione soglia punti nel menu principale.
+	 */
 	public void hideThreshold() {
 		secThreshold.setVisible(false);
 		secThreshold.setManaged(false);
 	}
 
+	/**
+	 * Mostra il form per aggiungere giocatori.
+	 */
 	public void showFormAddPlayers() {
 		formAddPlayers.setVisible(true);
 		formAddPlayers.setManaged(true);
@@ -261,6 +306,9 @@ public class Menu {
 		tfName.requestFocus();
 	}
 
+	/**
+	 * Nasconde il form per aggiungere giocatori.
+	 */
 	public void hideFormAddPlayers() {
 		hideError();
 		formAddPlayers.setVisible(false);
@@ -269,12 +317,20 @@ public class Menu {
 		btnAddPlayer.setManaged(true);
 	}
 
+	/**
+	 * Mostra un messaggio di errore nel form per aggiungere giocatori.
+	 * 
+	 * @param msg
+	 */
 	public void showError(String msg) {
 		lblError.setText(msg);
 		lblError.setVisible(true);
 		lblError.setManaged(true);
 	}
 
+	/**
+	 * Nasconde il messaggio di errore nel form per aggiungere giocatori.
+	 */
 	public void hideError() {
 		lblError.setVisible(false);
 		lblError.setManaged(false);

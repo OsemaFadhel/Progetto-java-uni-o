@@ -1,5 +1,6 @@
 package it.uniroma1.mdp.uno.view;
 
+import it.uniroma1.mdp.uno.model.cards.CardColor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
@@ -23,4 +24,21 @@ public class Style {
     public static Image loadCardImage(String fileName) {
         return new Image(Style.class.getResourceAsStream("/assets/cards/" + fileName));
     }
+
+    /**
+	 * Restituisce il colore in formato stringa in base al {@link CardColor}
+	 * fornito.
+	 * 
+	 * @param color
+	 * @return {@link String}
+	 */
+	public static String getColor(CardColor color) {
+		return switch (color) {
+		case RED -> "red";
+		case YELLOW -> "yellow";
+		case GREEN -> "green";
+		case BLUE -> "blue";
+		default -> "transparent";
+		};
+	}
 }
