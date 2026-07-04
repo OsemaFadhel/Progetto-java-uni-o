@@ -11,15 +11,29 @@ public abstract class Card {
 	protected CardColor color;
 	protected CardValue value;
 
+	/**
+	 * Crea una nuova carta con il colore e il valore specificato.
+	 * 
+	 * @param color
+	 * @param value
+	 */
 	protected Card(CardColor color, CardValue value) {
 		this.color = color;
 		this.value = value;
 	}
 
+	/**
+	 * 
+	 * @return {@link CardColor}
+	 */
 	public CardColor getColor() {
 		return color;
 	}
 
+	/**
+	 * 
+	 * @return {@link CardValue}
+	 */
 	public CardValue getValue() {
 		return value;
 	}
@@ -44,8 +58,7 @@ public abstract class Card {
 	public abstract boolean isPlayable(Card topCard, CardColor currentColor);
 
 	/**
-	 * Restituisce il nome del file dell'immagine associata a questa carta. Ad
-	 * esempio, una carta rossa con valore 5
+	 * Restituisce il nome del file dell'immagine associata a questa carta.
 	 * 
 	 * @return il nome del file dell'immagine (es. "RED_5.JPG")
 	 */

@@ -42,7 +42,7 @@ public class WildCard extends Card {
 	public boolean isPlayable(Card topCard, CardColor currentColor) {
 		return true;
 	}
-
+	
 	@Override
 	public String getImageFileName() {
 		return value.getFileName() + ".JPG";
