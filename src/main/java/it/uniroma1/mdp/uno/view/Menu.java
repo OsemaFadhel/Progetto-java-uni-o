@@ -94,7 +94,7 @@ public class Menu {
 	 * @return {@code VBox}
 	 */
 	private VBox buildSecPlayers() {
-		VBox box = new VBox(10);
+		VBox box = new VBox(Style.LARGE_SPACING);
 		Label label = new Label("Giocatori (2-6)");
 		box.getChildren().addAll(label, playerListBox, formAddPlayers, btnAddPlayer);
 		return box;
@@ -119,7 +119,7 @@ public class Menu {
 			lblValue.setText("Soglia: " + v + " punti");
 		});
 
-		VBox box = new VBox(10, lblValue, sliderThreshold);
+		VBox box = new VBox(Style.LARGE_SPACING, lblValue, sliderThreshold);
 
 		box.setAlignment(Pos.CENTER_LEFT);
 
@@ -136,8 +136,8 @@ public class Menu {
 	 * @return {@code VBox}
 	 */
 	private VBox buildFormAddPlayers() {
-		HBox btns = new HBox(10, btnConfirm, btnUndo);
-		VBox form = new VBox(8, new Label("Nome:"), tfName, new Label("Tipo:"), cbType, btns, lblError);
+		HBox btns = new HBox(Style.LARGE_SPACING, btnConfirm, btnUndo);
+		VBox form = new VBox(Style.SPACING, new Label("Nome:"), tfName, new Label("Tipo:"), cbType, btns, lblError);
 		form.setVisible(false);
 		form.setManaged(false);
 		return form;
@@ -154,7 +154,7 @@ public class Menu {
 		Label label = new Label(name + " [" + cbType.getValue() + "]");
 		Button btnRemove = new Button("✕");
 		btnRemove.getStyleClass().add("button-danger");
-		HBox row = new HBox(10, label, btnRemove);
+		HBox row = new HBox(Style.LARGE_SPACING, label, btnRemove);
 		row.setAlignment(Pos.CENTER_LEFT);
 
 		playerEntries.add(row);

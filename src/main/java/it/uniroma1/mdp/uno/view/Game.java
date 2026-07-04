@@ -57,7 +57,7 @@ public class Game {
 	private final VBox gameOverOverlay;
 	private final VBox menuOverlay;
 	private final Button btnExitGame = new Button("Esci");
-	private final HBox cards = new HBox(6);
+	private final HBox cards = new HBox(Style.SPACING);
 	private final ScrollPane humanHand = new ScrollPane(cards);
 
 	private final Button btnDeck;
@@ -100,7 +100,7 @@ public class Game {
 		Button btn = new Button();
 
 		ImageView deckImg = new ImageView(new Image(getClass().getResourceAsStream("/assets/cards/BACK.JPG")));
-		deckImg.setFitHeight(120);
+		deckImg.setFitHeight(Style.CARD_HEIGHT);
 		deckImg.setPreserveRatio(true);
 		btn.setGraphic(deckImg);
 		btn.getStyleClass().add("button-card");
@@ -120,10 +120,10 @@ public class Game {
 		btnColorGreen.getStyleClass().add("color-btn-green");
 		btnColorBlue.getStyleClass().add("color-btn-blue");
 
-		HBox colors = new HBox(6, btnColorRed, btnColorYellow, btnColorGreen, btnColorBlue);
+		HBox colors = new HBox(Style.SPACING, btnColorRed, btnColorYellow, btnColorGreen, btnColorBlue);
 		colors.setAlignment(Pos.CENTER);
 
-		VBox box = new VBox(6);
+		VBox box = new VBox(Style.SPACING);
 		box.getChildren().addAll(new Label("Scegli un colore:"), colors);
 		box.setAlignment(Pos.CENTER);
 		box.getStyleClass().add("overlay");
@@ -140,10 +140,10 @@ public class Game {
 	 */
 	private VBox buildChallengeOverlay() {
 		Label label = new Label("Challenge Wild Draw Four?");
-		HBox btns = new HBox(6, btnChallenge, btnNoChallenge);
+		HBox btns = new HBox(Style.SPACING, btnChallenge, btnNoChallenge);
 		btns.setAlignment(Pos.CENTER);
 
-		VBox box = new VBox(6, label, btns);
+		VBox box = new VBox(Style.SPACING, label, btns);
 		box.setAlignment(Pos.CENTER);
 		box.getStyleClass().add("overlay");
 		box.setVisible(false);
@@ -159,10 +159,7 @@ public class Game {
 	 * @return {@link VBox}
 	 */
 	private VBox buildRoundOverOverlay() {
-		HBox btns = new HBox(6, btnNextRound);
-		btns.setAlignment(Pos.CENTER);
-
-		VBox box = new VBox(6, lblRoundResult, btns);
+		VBox box = new VBox(Style.SPACING, lblRoundResult, btnNextRound);
 		box.setAlignment(Pos.CENTER);
 		box.getStyleClass().add("overlay");
 		box.setVisible(false);
@@ -177,7 +174,7 @@ public class Game {
 	 * @return {@link VBox}
 	 */
 	private VBox buildGameOverOverlay() {
-		VBox box = new VBox(6, lblGameResult, btnNewGame);
+		VBox box = new VBox(Style.SPACING, lblGameResult, btnNewGame);
 		box.setAlignment(Pos.CENTER);
 		box.getStyleClass().add("overlay");
 		box.setVisible(false);
@@ -193,7 +190,7 @@ public class Game {
 	 * @return {@link VBox}
 	 */
 	private VBox buildMenuOverlay() {
-		VBox box = new VBox(15, btnExitGame, btnCloseMenu);
+		VBox box = new VBox(Style.LARGE_SPACING, btnExitGame, btnCloseMenu);
 		box.setAlignment(Pos.CENTER);
 		box.getStyleClass().add("overlay");
 		box.setVisible(false);
@@ -249,7 +246,7 @@ public class Game {
 	 * @return {@link VBox}
 	 */
 	private VBox buildBottomBar() {
-		humanHand.setPrefHeight(140);
+		humanHand.setPrefHeight(Style.CARD_HEIGHT);
 		humanHand.getStyleClass().add("hand-scroll");
 		humanHand.setMaxWidth(Style.WIDTH - 200);
 		humanHand.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -257,19 +254,19 @@ public class Game {
 		btnUno.getStyleClass().add("button-uno");
 		btnContestUno.getStyleClass().add("button-contest");
 		btnPass.getStyleClass().add("button-pass");
-		HBox bottomBtns = new HBox(6, btnContestUno, btnPass);
+		HBox bottomBtns = new HBox(Style.SPACING, btnContestUno, btnPass);
 		bottomBtns.setAlignment(Pos.CENTER);
 
-		VBox actionBtns = new VBox(6, btnUno, bottomBtns);
+		VBox actionBtns = new VBox(Style.SPACING, btnUno, bottomBtns);
 		actionBtns.setAlignment(Pos.CENTER);
 		actionBtns.setPadding(new Insets(0, 10, 0, 10));
 
-		HBox handArea = new HBox(10, humanHand, actionBtns);
+		HBox handArea = new HBox(Style.LARGE_SPACING, humanHand, actionBtns);
 		HBox.setHgrow(humanHand, Priority.ALWAYS);
 
-		VBox bottom = new VBox(5, handArea, lblCurrentPlayer);
+		VBox bottom = new VBox(Style.SPACING, handArea, lblCurrentPlayer);
 		bottom.setAlignment(Pos.CENTER);
-		bottom.setPadding(new Insets(10));
+		bottom.setPadding(new Insets(Style.LARGE_SPACING));
 		bottom.getStyleClass().add("bottom-bar");
 		return bottom;
 	}
@@ -304,7 +301,7 @@ public class Game {
 	private void buildCardsCenter(double coordinatex, double coordinatey, GameEngine engine) {
 		String topCard = engine.getTopCard().getImageFileName();
 		ImageView discardView = new ImageView(new Image(getClass().getResourceAsStream("/assets/cards/" + topCard)));
-		discardView.setFitHeight(120);
+		discardView.setFitHeight(Style.CARD_HEIGHT);
 		discardView.setPreserveRatio(true);
 
 		StackPane discardWrapper = new StackPane(discardView);
@@ -346,7 +343,7 @@ public class Game {
 			} else {
 				points.setVisible(false);
 			}
-			VBox seat = new VBox(4, nameLabel, cardCount, points);
+			VBox seat = new VBox(Style.SPACING, nameLabel, cardCount, points);
 			seat.setAlignment(Pos.CENTER);
 			seat.getStyleClass().add("player-seat");
 			if (p == engine.getCurrentPlayer()) {
@@ -600,7 +597,7 @@ public class Game {
 		ImageView image = new ImageView(
 				new Image(getClass().getResourceAsStream("/assets/cards/" + card.getImageFileName())));
 		image.setPreserveRatio(true);
-		image.setFitHeight(120);
+		image.setFitHeight(Style.CARD_HEIGHT);
 		Button btn = new Button();
 		btn.setGraphic(image);
 		btn.getStyleClass().add("button-card");
