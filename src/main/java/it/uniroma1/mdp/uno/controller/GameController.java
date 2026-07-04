@@ -241,7 +241,7 @@ public class GameController {
 
 	/**
 	 * Aggiunge un giocatore al gioco UNO in base al tipo specificato (Umano, Bot
-	 * Casuale o Bot Avanzato).
+	 * Casuale o Bot Greedy).
 	 * 
 	 * @param name
 	 * @param type
@@ -254,7 +254,7 @@ public class GameController {
 		case "Bot Casuale":
 			player = new BotPlayer(name, new RandomBotStrategy());
 			break;
-		case "Bot Greedy": 
+		case "Bot Greedy":
 			player = new BotPlayer(name, new GreedyBotStrategy());
 			break;
 		default:
@@ -268,7 +268,6 @@ public class GameController {
 	/**
 	 * Gestisce i cambiamenti di stato del gioco UNO e aggiorna la vista di
 	 * conseguenza.
-	 * 
 	 */
 	public void handleStateChange() {
 		gameView.updateTable(engine);
@@ -341,7 +340,7 @@ public class GameController {
 		PauseTransition pause = new PauseTransition(Duration.seconds(1));
 		pause.setOnFinished(e -> {
 			BotPlayer bot = (BotPlayer) engine.getCurrentPlayer();
-			
+
 			if (bot.shouldContestUno()) {
 				engine.contestUno();
 			}
