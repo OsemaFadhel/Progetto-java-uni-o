@@ -223,7 +223,7 @@ public class GameController {
 		gameView.getButtonDeck().setOnAction(e -> {
 			try {
 				engine.drawDuringTurn(engine.getCurrentPlayer());
-				handleStateChange();
+				refreshHumanHand();
 			} catch (Exception ex) {
 				gameView.showError(ex.getMessage());
 			}
@@ -369,5 +369,23 @@ public class GameController {
 			handleStateChange();
 		});
 		pause.play();
+	}
+
+	/**
+	 * Aggiorna la mano del giocatore umano nella vista di gioco.
+	 */
+	private void refreshHumanHand() {
+		gameView.updateTable(engine);
+		gameView.clearHumanHand();
+		for (Card c : engine.getCurrentPlayer().getHand()) {
+			gameView.addCardToHand(c, () -> {
+				try {
+					engine.playCard(engine.getCurrentPlayer(), c);
+					handleStateChange();
+				} catch (Exception ex) {
+					gameView.showError(ex.getMessage());
+				}
+			});
+		}
 	}
 }
