@@ -57,7 +57,7 @@ public class Game {
 	private final VBox gameOverOverlay;
 	private final VBox menuOverlay;
 	private final Button btnExitGame = new Button("Esci");
-	private final HBox cards = new HBox(Style.SPACING);
+	private final HBox cards = new HBox(Style.CARD_SPACING);
 	private final ScrollPane humanHand = new ScrollPane(cards);
 
 	private final Button btnDeck;

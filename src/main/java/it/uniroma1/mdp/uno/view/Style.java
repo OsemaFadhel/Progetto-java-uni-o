@@ -14,6 +14,7 @@ public class Style {
     public static final int HEIGHT = 800;
     public static final int PADDING = 30;
     public static final int SPACING = 6;
+	public static final int CARD_SPACING = 3;
     public static final int LARGE_SPACING = 10;
     public static final int CARD_HEIGHT = 120;
 
