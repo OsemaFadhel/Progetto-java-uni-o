@@ -578,7 +578,7 @@ public class Game {
 	 */
 	public void addCardToHand(Card card, Runnable onPlay) {
 		ImageView image = new ImageView(
-				new Image(getClass().getResourceAsStream("/assets/cards/" + card.getImageFileName())));
+				Style.loadCardImage(card.getImageFileName()));
 		image.setPreserveRatio(true);
 		image.setFitHeight(Style.CARD_HEIGHT);
 		Button btn = new Button();
