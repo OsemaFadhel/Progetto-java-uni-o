@@ -27,7 +27,7 @@ import javafx.util.Duration;
 
 /**
  * 
- * Game
+ * Rappresenta la vista principale del gioco UNO, dove avviene la partita.
  * 
  * @author Osema Fadhel
  */
@@ -63,6 +63,10 @@ public class Game {
 	private final Button btnDeck;
 	private final Label lblNotification = new Label();
 
+	/**
+	 * Crea una nuova istanza della vista principale del gioco UNO, inizializzando i
+	 * componenti grafici.
+	 */
 	public Game() {
 		this.colorPickOverlay = buildColorPickOverlay();
 		this.challengeOverlay = buildChallengeOverlay();
@@ -80,10 +84,18 @@ public class Game {
 		Style.applyTo(this.scene);
 	}
 
+	/**
+	 * @return {@link Scene}
+	 */
 	public Scene getScene() {
 		return this.scene;
 	}
 
+	/**
+	 * Restituisce il pulsante per pescare una carta dal mazzo.
+	 * 
+	 * @return {@link Button}
+	 */
 	private Button buildButtonDeck() {
 		Button btn = new Button();
 
@@ -96,6 +108,12 @@ public class Game {
 		return btn;
 	}
 
+	/**
+	 * Restituisce l'overlay per la scelta del colore quando un giocatore gioca una
+	 * carta Wild.
+	 * 
+	 * @return {@link VBox}
+	 */
 	private VBox buildColorPickOverlay() {
 		btnColorRed.getStyleClass().add("color-btn-red");
 		btnColorYellow.getStyleClass().add("color-btn-yellow");
@@ -115,6 +133,11 @@ public class Game {
 		return box;
 	}
 
+	/**
+	 * Restituisce l'overlay per la sfida del WILD DRAW FOUR.
+	 * 
+	 * @return {@link VBox}
+	 */
 	private VBox buildChallengeOverlay() {
 		Label label = new Label("Challenge Wild Draw Four?");
 		HBox btns = new HBox(6, btnChallenge, btnNoChallenge);
@@ -129,6 +152,12 @@ public class Game {
 		return box;
 	}
 
+	/**
+	 * Restituisce l'overlay per la fine del round, mostrando il vincitore e i punti
+	 * guadagnati.
+	 * 
+	 * @return {@link VBox}
+	 */
 	private VBox buildRoundOverOverlay() {
 		HBox btns = new HBox(6, btnNextRound);
 		btns.setAlignment(Pos.CENTER);
@@ -142,6 +171,11 @@ public class Game {
 		return box;
 	}
 
+	/**
+	 * Restituisce l'overlay per la fine del gioco, mostrando il vincitore.
+	 * 
+	 * @return {@link VBox}
+	 */
 	private VBox buildGameOverOverlay() {
 		VBox box = new VBox(6, lblGameResult, btnNewGame);
 		box.setAlignment(Pos.CENTER);
@@ -152,6 +186,12 @@ public class Game {
 		return box;
 	}
 
+	/**
+	 * Restituisce l'overlay per il menu di gioco, con opzioni per uscire o tornare
+	 * al gioco.
+	 * 
+	 * @return {@link VBox}
+	 */
 	private VBox buildMenuOverlay() {
 		VBox box = new VBox(15, btnExitGame, btnCloseMenu);
 		box.setAlignment(Pos.CENTER);
@@ -162,6 +202,12 @@ public class Game {
 		return box;
 	}
 
+	/**
+	 * Restituisce lo StackPane principale che contiene tutti gli elementi della
+	 * vista di gioco.
+	 * 
+	 * @return {@link StackPane}
+	 */
 	private StackPane buildRoot() {
 		StackPane root = new StackPane();
 		root.getStyleClass().add("bg-game");
@@ -179,6 +225,12 @@ public class Game {
 		return root;
 	}
 
+	/**
+	 * Restituisce la barra superiore della vista di gioco, contenente il pulsante
+	 * del menu e l'indicatore di direzione del turno.
+	 * 
+	 * @return {@link HBox}
+	 */
 	private HBox buildTopBar() {
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -190,6 +242,12 @@ public class Game {
 		return bar;
 	}
 
+	/**
+	 * Restituisce la barra inferiore della vista di gioco, contenente la mano del
+	 * giocatore umano e i pulsanti di azione.
+	 * 
+	 * @return {@link VBox}
+	 */
 	private VBox buildBottomBar() {
 		humanHand.setPrefHeight(140);
 		humanHand.getStyleClass().add("hand-scroll");
@@ -216,6 +274,12 @@ public class Game {
 		return bottom;
 	}
 
+	/**
+	 * Aggiorna la vista del tavolo di gioco in base allo stato attuale del gioco
+	 * UNO.
+	 * 
+	 * @param engine
+	 */
 	public void updateTable(GameEngine engine) {
 		direction.setText(engine.isClockwise() ? "↻" : "↺");
 		lblCurrentPlayer.setText("Turno di: " + engine.getCurrentPlayer().getName());
@@ -229,6 +293,14 @@ public class Game {
 		buildPlayerCircle(coordinatex, coordinatey, engine);
 	}
 
+	/**
+	 * Costruisce la rappresentazione grafica delle carte al centro del tavolo di
+	 * gioco, mostrando la carta in cima al mazzo degli scarti e il mazzo di pesca.
+	 * 
+	 * @param coordinatex
+	 * @param coordinatey
+	 * @param engine
+	 */
 	private void buildCardsCenter(double coordinatex, double coordinatey, GameEngine engine) {
 		String topCard = engine.getTopCard().getImageFileName();
 		ImageView discardView = new ImageView(new Image(getClass().getResourceAsStream("/assets/cards/" + topCard)));
@@ -247,6 +319,14 @@ public class Game {
 		tablePane.getChildren().addAll(btnDeck, discardWrapper);
 	}
 
+	/**
+	 * Costruisce la rappresentazione grafica dei giocatori attorno al tavolo di
+	 * gioco,
+	 * 
+	 * @param coordinatex
+	 * @param coordinatey
+	 * @param engine
+	 */
 	private void buildPlayerCircle(double coordinatex, double coordinatey, GameEngine engine) {
 		List<Player> players = engine.getPlayers();
 		int n = players.size();
@@ -279,6 +359,13 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Restituisce il colore in formato stringa in base al {@link CardColor}
+	 * fornito.
+	 * 
+	 * @param color
+	 * @return {@link String}
+	 */
 	private String getColor(CardColor color) {
 		return switch (color) {
 		case RED -> "red";
@@ -289,66 +376,116 @@ public class Game {
 		};
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonPass() {
 		return btnPass;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonUno() {
 		return btnUno;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonContestUno() {
 		return btnContestUno;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonMenu() {
 		return btnMenu;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonNextRound() {
 		return btnNextRound;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonNewGame() {
 		return btnNewGame;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonColorRed() {
 		return btnColorRed;
 	}
 
+	/**
+	 * @return
+	 */
 	public Button getButtonColorYellow() {
 		return btnColorYellow;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonColorBlue() {
 		return btnColorBlue;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonColorGreen() {
 		return btnColorGreen;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonChallenge() {
 		return btnChallenge;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonNoChallenge() {
 		return btnNoChallenge;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonExitGame() {
 		return btnExitGame;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonCloseMenu() {
 		return btnCloseMenu;
 	}
 
+	/**
+	 * @return {@link Button}
+	 */
 	public Button getButtonDeck() {
 		return btnDeck;
 	}
 
+	/**
+	 * Rappresenta un messaggio nella vista di gioco.
+	 * 
+	 * @param msg
+	 */
 	public void showError(String msg) {
 		lblNotification.setText(msg);
 		lblNotification.setVisible(true);
@@ -357,62 +494,108 @@ public class Game {
 		pause.play();
 	}
 
+	/**
+	 * Mostra l'overlay per la scelta del colore quando un giocatore gioca una carta
+	 * Wild.
+	 */
 	public void showColorPickOverlay() {
 		colorPickOverlay.setVisible(true);
 		colorPickOverlay.setManaged(true);
 	}
 
+	/**
+	 * Nasconde l'overlay per la scelta del colore.
+	 */
 	public void hideColorPickOverlay() {
 		colorPickOverlay.setVisible(false);
 		colorPickOverlay.setManaged(false);
 	}
 
+	/**
+	 * Mostra l'overlay per la sfida del WILD DRAW FOUR.
+	 */
 	public void showChallengeOverlay() {
 		challengeOverlay.setVisible(true);
 		challengeOverlay.setManaged(true);
 	}
 
+	/**
+	 * Nasconde l'overlay per la sfida del WILD DRAW FOUR.
+	 */
 	public void hideChallengeOverlay() {
 		challengeOverlay.setVisible(false);
 		challengeOverlay.setManaged(false);
 	}
 
+	/**
+	 * Mostra l'overlay per la fine del round, indicando il vincitore e i punti
+	 * guadagnati.
+	 * 
+	 * @param winner
+	 * @param score
+	 */
 	public void showRoundOverOverlay(String winner, int score) {
 		lblRoundResult.setText(winner + " vince il round! +" + score + " punti");
 		roundOverOverlay.setVisible(true);
 		roundOverOverlay.setManaged(true);
 	}
 
+	/**
+	 * Nasconde l'overlay per la fine del round.
+	 */
 	public void hideRoundOverOverlay() {
 		roundOverOverlay.setVisible(false);
 		roundOverOverlay.setManaged(false);
 	}
 
+	/**
+	 * Mostra l'overlay per la fine del gioco, indicando il vincitore.
+	 * 
+	 * @param winner
+	 */
 	public void showGameOverOverlay(String winner) {
 		lblGameResult.setText(winner + " WINS!");
 		gameOverOverlay.setVisible(true);
 		gameOverOverlay.setManaged(true);
 	}
 
+	/**
+	 * Nasconde l'overlay per la fine del gioco.
+	 */
 	public void hideGameOverOverlay() {
 		gameOverOverlay.setVisible(false);
 		gameOverOverlay.setManaged(false);
 	}
 
+	/**
+	 * Mostra l'overlay del menu di gioco.
+	 */
 	public void showMenuOverlay() {
 		menuOverlay.setVisible(true);
 		menuOverlay.setManaged(true);
 	}
 
+	/**
+	 * Nasconde l'overlay del menu di gioco.
+	 */
 	public void hideMenuOverlay() {
 		menuOverlay.setVisible(false);
 		menuOverlay.setManaged(false);
 	}
 
+	/**
+	 * Pulisce la mano del giocatore umano, rimuovendo tutte le carte dalla vista.
+	 */
 	public void clearHumanHand() {
 		cards.getChildren().clear();
 	}
 
+	/**
+	 * Aggiunge una carta alla mano del giocatore umano nella vista di gioco.
+	 * 
+	 * @param card
+	 * @param onPlay
+	 */
 	public void addCardToHand(Card card, Runnable onPlay) {
 		ImageView image = new ImageView(
 				new Image(getClass().getResourceAsStream("/assets/cards/" + card.getImageFileName())));
@@ -425,11 +608,17 @@ public class Game {
 		cards.getChildren().add(btn);
 	}
 
+	/**
+	 * Mostra la mano del giocatore umano nella vista di gioco.
+	 */
 	public void showHumanHand() {
 		humanHand.setVisible(true);
 		humanHand.setManaged(true);
 	}
 
+	/**
+	 * Naconde la mano del giocatore umano nella vista di gioco.
+	 */
 	public void hideHumanHand() {
 		cards.getChildren().clear();
 		humanHand.setVisible(false);

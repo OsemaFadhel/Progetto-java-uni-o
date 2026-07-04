@@ -8,6 +8,7 @@ import it.uniroma1.mdp.uno.model.cards.CardColor;
 import it.uniroma1.mdp.uno.model.players.BotPlayer;
 import it.uniroma1.mdp.uno.model.players.HumanPlayer;
 import it.uniroma1.mdp.uno.model.players.Player;
+import it.uniroma1.mdp.uno.model.players.strategies.GreedyBotStrategy;
 import it.uniroma1.mdp.uno.model.players.strategies.RandomBotStrategy;
 import it.uniroma1.mdp.uno.view.Game;
 import it.uniroma1.mdp.uno.view.Menu;
@@ -253,10 +254,9 @@ public class GameController {
 		case "Bot Casuale":
 			player = new BotPlayer(name, new RandomBotStrategy());
 			break;
-		/*
-		 * case "Bot Avanzato": player = new BotPlayer(name, new AdvancedBotStrategy());
-		 * break;
-		 */
+		case "Bot Greedy": 
+			player = new BotPlayer(name, new GreedyBotStrategy());
+			break;
 		default:
 			player = new HumanPlayer(name);
 		}
@@ -341,6 +341,11 @@ public class GameController {
 		PauseTransition pause = new PauseTransition(Duration.seconds(1));
 		pause.setOnFinished(e -> {
 			BotPlayer bot = (BotPlayer) engine.getCurrentPlayer();
+			
+			if (bot.shouldContestUno()) {
+				engine.contestUno();
+			}
+
 			Card card = bot.chooseCardPlay(engine.getTopCard(), engine.getCurrentColor());
 			try {
 				if (card == null) {

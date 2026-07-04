@@ -42,7 +42,7 @@ public class Menu {
 	 * Crea una nuova istanza del menu principale del gioco UNO.
 	 */
 	public Menu() {
-		cbType.getItems().addAll("Umano", "Bot Casuale", "Bot Avanzato");
+		cbType.getItems().addAll("Umano", "Bot Casuale", "Bot Greedy");
 		cbType.setValue("Umano");
 
 		secThreshold = buildSecThreshold();
@@ -67,7 +67,7 @@ public class Menu {
 	/**
 	 * Restituisce il layout del menu principale del gioco UNO.
 	 * 
-	 * @return {@code VBox}
+	 * @return {@link VBox}
 	 */
 	private VBox buildRoot() {
 		VBox root = new VBox(Style.PADDING);

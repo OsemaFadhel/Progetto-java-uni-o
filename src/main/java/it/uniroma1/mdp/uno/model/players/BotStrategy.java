@@ -24,7 +24,7 @@ public interface BotStrategy {
 	 * @return la {@link Card} scelta dal bot da giocare, o null se il bot deve
 	 *         pescare.
 	 */
-	Card chooseCard(List<Card> hand, Card topCard, CardColor currentColor);
+	public Card chooseCard(List<Card> hand, Card topCard, CardColor currentColor);
 
 	/**
 	 * Sceglie quale colore dichiarare quando gioca una carta Wild.
@@ -34,7 +34,7 @@ public interface BotStrategy {
 	 *
 	 * @return il {@link CardColor} scelto dal bot.
 	 */
-	CardColor chooseColor(List<Card> hand, CardColor currentColor);
+	public CardColor chooseColor(List<Card> hand, CardColor currentColor);
 
 	/**
 	 * Sceglie se giocare la carta pescata.
@@ -44,14 +44,22 @@ public interface BotStrategy {
 	 * @param currentColor il colore attuale
 	 * @return true se il bot decide di giocarla, false altrimenti.
 	 */
-	boolean shouldPlayDrawnCard(List<Card> hand, Card topCard, CardColor currentColor);
+	public boolean shouldPlayDrawnCard(List<Card> hand, Card topCard, CardColor currentColor);
 
 	/**
 	 * Sceglie se sfidare il WILD DRAW FOUR.
 	 * 
 	 * @param hand
-	 * @param targetHand
+	 * @param targetHand numero di carte in mano all'avversario che ha giocato il
+	 *                   WILD DRAW FOUR
 	 * @return true se il bot decide di sfidare, false altrimenti.
 	 */
-	boolean shouldChallenge(List<Card> hand, int targetHand);
+	public boolean shouldChallenge(List<Card> hand, int targetHand);
+
+	/**
+	 * Sceglie se contestare un avversario che non ha dichiarato UNO.
+	 * 
+	 * @return true se il bot decide di contestare, false altrimenti.
+	 */
+	public boolean shouldContestUno();
 }

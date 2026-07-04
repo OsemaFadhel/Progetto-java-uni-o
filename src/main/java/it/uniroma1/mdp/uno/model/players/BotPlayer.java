@@ -73,4 +73,13 @@ public class BotPlayer extends Player {
 	public boolean shouldChallenge(int targetHand) {
 		return strategy.shouldChallenge(this.hand, targetHand);
 	}
+
+	/**
+	 * Sceglie se contestare o meno un avversario che non ha dichiarato UNO, in base alla strategia
+	 * 
+	 * @return
+	 */
+	public boolean shouldContestUno() {
+		return strategy.shouldContestUno();
+	}
 }
