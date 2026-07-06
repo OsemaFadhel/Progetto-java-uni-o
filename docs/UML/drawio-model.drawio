@@ -1,0 +1,137 @@
+
+<mxGraphModel dx="2380" dy="1438" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-1" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;ActionCard&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ ActionCard(CardColor, CardValue): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ isPlayable(Card, CardColor): boolean&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; points: int&lt;/p&gt;" vertex="1">
+      <mxGeometry height="144" width="284" x="1000" y="1249" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-2" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;BotPlayer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ BotPlayer(String, BotStrategy): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ shouldContestUno(): boolean&lt;br/&gt;+ shouldChallenge(int): boolean&lt;br/&gt;+ chooseWildColor(CardColor): CardColor&lt;br/&gt;+ chooseCardPlay(Card, CardColor): Card&lt;br/&gt;+ shouldPlayDrawnCard(Card, CardColor): boolean&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; bot: boolean&lt;/p&gt;" vertex="1">
+      <mxGeometry height="235" width="359" x="2842" y="925" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-29" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;curved=0;" target="-iI-yGfUOBvSSYe0GFwC-2">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-3" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;BotStrategy&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ shouldChallenge(List&amp;lt;Card&amp;gt;, int): boolean&lt;br/&gt;+ chooseCard(List&amp;lt;Card&amp;gt;, Card, CardColor): Card&lt;br/&gt;+ shouldContestUno(): boolean&lt;br/&gt;+ chooseColor(List&amp;lt;Card&amp;gt;, CardColor): CardColor&lt;br/&gt;+ shouldPlayDrawnCard(List&amp;lt;Card&amp;gt;, Card, CardColor): boolean&lt;/p&gt;" vertex="1">
+      <mxGeometry height="171" width="436" x="2557" y="1210" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-32" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;curved=0;" target="-iI-yGfUOBvSSYe0GFwC-8">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-4" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Card&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;# Card(CardColor, CardValue): &lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;# value: CardValue&lt;br&gt;# color: CardColor&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;&lt;i&gt;+ isPlayable(Card, CardColor): boolean&lt;/i&gt;&lt;/p&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ &lt;i&gt;getPoints(): int&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; color: CardColor&lt;br&gt; imageFileName: String&lt;br&gt; points: int&lt;br&gt; value: CardValue&lt;/p&gt;" vertex="1">
+      <mxGeometry height="241" width="284" x="1373" y="882" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-28" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;curved=0;" target="-iI-yGfUOBvSSYe0GFwC-4">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-5" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CardColor&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ CardColor(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ values(): CardColor[]&lt;br/&gt;+ valueOf(String): CardColor&lt;/p&gt;" vertex="1">
+      <mxGeometry height="140" width="221" x="1032" y="840" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-27" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;curved=0;">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="1369.9999999999995" y="1010" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-6" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CardValue&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- CardValue(String): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- fileName: String&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ values(): CardValue[]&lt;br/&gt;+ valueOf(String): CardValue&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; fileName: String&lt;/p&gt;" vertex="1">
+      <mxGeometry height="174" width="223" x="1032" y="993" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-7" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Deck&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;~ Deck(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- initializeStandardDeck(): void&lt;br/&gt;~ shuffle(): void&lt;br/&gt;~ refillDeck(Stack&amp;lt;Card&amp;gt;): void&lt;br/&gt;~ drawCard(): Card&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; empty: boolean&lt;/p&gt;" vertex="1">
+      <mxGeometry height="204" width="239" x="1710" y="590" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-8" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;GameEngine&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ GameEngine(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- gameState: GameState&lt;br/&gt;- colorBeforeWild: CardColor&lt;br/&gt;- gameMode: GameMode&lt;br/&gt;- isClockwise: boolean&lt;br/&gt;- pointThreshold: int&lt;br/&gt;- players: List&amp;lt;Player&amp;gt;&lt;br/&gt;- currentColor: CardColor&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- moveToNextPlayer(): void&lt;br/&gt;- initRound(): void&lt;br/&gt;+ playCard(Player, Card): void&lt;br/&gt;+ drawDuringTurn(Player): void&lt;br/&gt;+ solveChallenge(boolean): void&lt;br/&gt;+ startNewRound(): void&lt;br/&gt;+ resetGame(): void&lt;br/&gt;- showFirstCard(): void&lt;br/&gt;+ addPlayer(Player): void&lt;br/&gt;+ startGame(): void&lt;br/&gt;+ callUno(Player): void&lt;br/&gt;+ calculateRoundScore(Player): int&lt;br/&gt;+ passTurn(): void&lt;br/&gt;+ removePlayer(Player): void&lt;br/&gt;- drawCards(Player, int): void&lt;br/&gt;+ contestUno(): boolean&lt;br/&gt;- applyCardEffect(Card): void&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; currentColor: CardColor&lt;br/&gt; colorBeforeWild: CardColor&lt;br/&gt; targetPlayer: Player&lt;br/&gt; wildDrawFourLegal: boolean&lt;br/&gt; players: List&amp;lt;Player&amp;gt;&lt;br/&gt; wildColor: CardColor&lt;br/&gt; pointThreshold: int&lt;br/&gt; gameMode: GameMode&lt;br/&gt; isClockwise: boolean&lt;br/&gt; topCard: Card&lt;br/&gt; currentPlayer: Player&lt;br/&gt; previousPlayer: Player&lt;br/&gt; gameState: GameState&lt;/p&gt;" vertex="1">
+      <mxGeometry height="954" width="259" x="2041" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-9" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;GameMode&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ GameMode(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ values(): GameMode[]&lt;br/&gt;+ valueOf(String): GameMode&lt;/p&gt;" vertex="1">
+      <mxGeometry height="140" width="231" x="2340" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-10" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br/&gt;&lt;b&gt;GameState&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ GameState(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ values(): GameState[]&lt;br/&gt;+ valueOf(String): GameState&lt;/p&gt;" vertex="1">
+      <mxGeometry height="140" width="228" x="2340" y="590" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-11" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;GreedyBotStrategy&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ GreedyBotStrategy(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ shouldPlayDrawnCard(List&amp;lt;Card&amp;gt;, Card, CardColor): boolean&lt;br/&gt;+ chooseCard(List&amp;lt;Card&amp;gt;, Card, CardColor): Card&lt;br/&gt;+ shouldChallenge(List&amp;lt;Card&amp;gt;, int): boolean&lt;br/&gt;+ chooseColor(List&amp;lt;Card&amp;gt;, CardColor): CardColor&lt;br/&gt;+ shouldContestUno(): boolean&lt;/p&gt;" vertex="1">
+      <mxGeometry height="197" width="436" x="2777" y="1424" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-12" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;HumanPlayer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ HumanPlayer(String): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; bot: boolean&lt;/p&gt;" vertex="1">
+      <mxGeometry height="95" width="181" x="2584" y="925" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-31" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;curved=0;endArrow=block;endFill=0;strokeColor=#660066;" target="-iI-yGfUOBvSSYe0GFwC-4">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1852" y="1200" />
+          <mxPoint x="1515" y="1200" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-13" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;NumberCard&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ NumberCard(CardColor, CardValue): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ isPlayable(Card, CardColor): boolean&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; points: int&lt;/p&gt;" vertex="1">
+      <mxGeometry height="142" width="284" x="1710" y="1261" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-14" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Player&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;# Player(String): &lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;# name: String&lt;br&gt;# points: int&lt;br&gt;# hand: List&amp;lt;Card&amp;gt;&lt;br&gt;# unoCalled: boolean&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ removeCard(Card): void&lt;br&gt;+ addPoints(int): void&lt;br&gt;+ hasOneCard(): boolean&lt;br&gt;+ addCard(Card): void&lt;br&gt;+ resetPoints(): void&lt;br&gt;+ clearHand(): void&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; name: String&lt;br&gt; unoCalled: boolean&lt;br&gt; handSize: int&lt;br&gt; bot: boolean&lt;br&gt; hand: List&amp;lt;Card&amp;gt;&lt;br&gt; points: int&lt;/p&gt;" vertex="1">
+      <mxGeometry height="490" width="205" x="2744" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-15" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;RandomBotStrategy&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ RandomBotStrategy(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ shouldChallenge(List&amp;lt;Card&amp;gt;, int): boolean&lt;br/&gt;+ chooseCard(List&amp;lt;Card&amp;gt;, Card, CardColor): Card&lt;br/&gt;+ chooseColor(List&amp;lt;Card&amp;gt;, CardColor): CardColor&lt;br/&gt;+ shouldContestUno(): boolean&lt;br/&gt;+ shouldPlayDrawnCard(List&amp;lt;Card&amp;gt;, Card, CardColor): boolean&lt;/p&gt;" vertex="1">
+      <mxGeometry height="197" width="436" x="2300" y="1424" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-16" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;WildCard&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ WildCard(CardColor, CardValue): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ isPlayable(Card, CardColor): boolean&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; points: int&lt;br/&gt; imageFileName: String&lt;/p&gt;" vertex="1">
+      <mxGeometry height="162" width="284" x="1373" y="1261" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-17" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-1" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#660066;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;endFill=0;" target="-iI-yGfUOBvSSYe0GFwC-4" value="">
+      <mxGeometry height="50" relative="1" width="50" as="geometry">
+        <Array as="points">
+          <mxPoint x="1142" y="1200" />
+          <mxPoint x="1515" y="1200" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-18" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-2" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#000082;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;" target="-iI-yGfUOBvSSYe0GFwC-14" value="">
+      <mxGeometry height="50" relative="1" width="50" as="geometry">
+        <Array as="points">
+          <mxPoint x="3021" y="700" />
+        </Array>
+        <mxPoint x="2980" y="740" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-19" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-11" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=block;endSize=12;strokeColor=#008200;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;" target="-iI-yGfUOBvSSYe0GFwC-3" value="">
+      <mxGeometry height="50" relative="1" width="50" as="geometry">
+        <Array as="points">
+          <mxPoint x="2995" y="1396" />
+          <mxPoint x="2775" y="1396" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-20" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-12" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#000082;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;" target="-iI-yGfUOBvSSYe0GFwC-14" value="">
+      <mxGeometry height="50" relative="1" width="50" as="geometry">
+        <Array as="points">
+          <mxPoint x="2675" y="697" />
+        </Array>
+        <mxPoint x="2710" y="730" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-22" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-15" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=block;endSize=12;strokeColor=#008200;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;" target="-iI-yGfUOBvSSYe0GFwC-3" value="">
+      <mxGeometry height="50" relative="1" width="50" as="geometry">
+        <Array as="points">
+          <mxPoint x="2518" y="1396" />
+          <mxPoint x="2775" y="1396" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-23" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-16" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=none;endArrow=block;endSize=12;strokeColor=#660066;exitX=0.500;exitY=0.000;exitDx=0;exitDy=0;entryX=0.500;entryY=1.000;entryDx=0;entryDy=0;endFill=0;" target="-iI-yGfUOBvSSYe0GFwC-4" value="">
+      <mxGeometry height="50" relative="1" width="50" as="geometry">
+        <Array as="points">
+          <mxPoint x="1515" y="1170" />
+          <mxPoint x="1515" y="1170" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-33" edge="1" parent="1" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="-iI-yGfUOBvSSYe0GFwC-7" value="">
+      <mxGeometry relative="1" width="160" as="geometry">
+        <mxPoint x="2040" y="692" as="sourcePoint" />
+        <mxPoint x="2210" y="870" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-34" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-8" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1.015;exitY=0.386;exitDx=0;exitDy=0;exitPerimeter=0;" target="-iI-yGfUOBvSSYe0GFwC-14" value="">
+      <mxGeometry relative="1" width="160" as="geometry">
+        <mxPoint x="2350" y="790" as="sourcePoint" />
+        <mxPoint x="2740" y="813" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>

@@ -342,6 +342,7 @@ public class Game {
 				points.setVisible(true);
 			} else {
 				points.setVisible(false);
+				points.setManaged(false);
 			}
 			VBox seat = new VBox(Style.SPACING, nameLabel, cardCount, points);
 			seat.setAlignment(Pos.CENTER);

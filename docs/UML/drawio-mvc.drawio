@@ -1,0 +1,52 @@
+<mxGraphModel dx="2073" dy="1978" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-54" connectable="0" parent="1" style="group;fillColor=#f8cecc;strokeColor=#b85450;container=0;strokeWidth=1;fontSize=30;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontStyle=1;" value="Controller" vertex="1">
+      <mxGeometry height="270" width="640" x="2370" y="1360" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-53" connectable="0" parent="1" style="group;fillColor=#dae8fc;strokeColor=#6c8ebf;container=0;strokeWidth=1;fontSize=30;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;fontStyle=1;" value="Model" vertex="1">
+      <mxGeometry height="920" width="580" x="2770" y="400" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-41" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;GameController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ GameController(GameEngine, Stage): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ start(): void&lt;br/&gt;+ handleBotTurn(): void&lt;br/&gt;+ handleStateChange(): void&lt;br/&gt;+ addPlayer(String, String): Player&lt;br/&gt;- refreshHumanHand(): void&lt;br/&gt;+ showMenu(): void&lt;br/&gt;+ showGame(): void&lt;/p&gt;" vertex="1">
+      <mxGeometry height="232" width="283" x="2560" y="1370" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-42" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;container=0;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;GameEngine&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ GameEngine(): &lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- gameState: GameState&lt;br&gt;- colorBeforeWild: CardColor&lt;br&gt;- gameMode: GameMode&lt;br&gt;- isClockwise: boolean&lt;br&gt;- pointThreshold: int&lt;br&gt;- players: List&amp;lt;Player&amp;gt;&lt;br&gt;- currentColor: CardColor&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ playCard(Player, Card): void&lt;br&gt;+ drawDuringTurn(Player): void&lt;br&gt;+ solveChallenge(boolean): void&lt;br&gt;+ startNewRound(): void&lt;br&gt;+ resetGame(): void&lt;br&gt;+ addPlayer(Player): void&lt;br&gt;+ startGame(): void&lt;br&gt;+ callUno(Player): void&lt;br&gt;+ calculateRoundScore(Player): int&lt;br&gt;+ passTurn(): void&lt;br&gt;+ removePlayer(Player): void&lt;br&gt;+ contestUno(): boolean&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; currentColor: CardColor&lt;br&gt; colorBeforeWild: CardColor&lt;br&gt; targetPlayer: Player&lt;br&gt; wildDrawFourLegal: boolean&lt;br&gt; players: List&amp;lt;Player&amp;gt;&lt;br&gt; wildColor: CardColor&lt;br&gt; pointThreshold: int&lt;br&gt; gameMode: GameMode&lt;br&gt; isClockwise: boolean&lt;br&gt; topCard: Card&lt;br&gt; currentPlayer: Player&lt;br&gt; previousPlayer: Player&lt;br&gt; gameState: GameState&lt;/p&gt;" vertex="1">
+      <mxGeometry height="820" width="259" x="2910" y="455" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-46" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-41" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;curved=0;" target="-iI-yGfUOBvSSYe0GFwC-42" value="">
+      <mxGeometry relative="1" width="160" as="geometry">
+        <mxPoint x="2820" y="1120" as="sourcePoint" />
+        <mxPoint x="2980" y="1120" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-47" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-41" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;curved=0;" target="-iI-yGfUOBvSSYe0GFwC-43" value="">
+      <mxGeometry relative="1" width="160" as="geometry">
+        <mxPoint x="2820" y="1120" as="sourcePoint" />
+        <mxPoint x="2980" y="1120" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-48" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-41" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;curved=0;" target="-iI-yGfUOBvSSYe0GFwC-40" value="">
+      <mxGeometry relative="1" width="160" as="geometry">
+        <mxPoint x="2820" y="1120" as="sourcePoint" />
+        <mxPoint x="2980" y="1120" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-49" edge="1" parent="1" source="-iI-yGfUOBvSSYe0GFwC-40" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;curved=0;" target="-iI-yGfUOBvSSYe0GFwC-42" value="">
+      <mxGeometry relative="1" width="160" as="geometry">
+        <mxPoint x="2820" y="1120" as="sourcePoint" />
+        <mxPoint x="2980" y="1120" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-52" connectable="0" parent="1" style="group;fillColor=#ffe6cc;strokeColor=#d79b00;container=0;strokeWidth=1;fontSize=30;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;fontStyle=1" value="View" vertex="1">
+      <mxGeometry height="930" width="840" x="1761" y="398" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-40" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Game&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Game(): &lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- scene: Scene&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ showColorPickOverlay(): void&lt;br&gt;+ hideMenuOverlay(): void&lt;br&gt;+ clearHumanHand(): void&lt;br&gt;+ hideGameOverOverlay(): void&lt;br&gt;+ hideChallengeOverlay(): void&lt;br&gt;+ showGameOverOverlay(String): void&lt;br&gt;+ showHumanHand(): void&lt;br&gt;+ showError(String): void&lt;br&gt;+ addCardToHand(Card, Runnable): void&lt;br&gt;+ showRoundOverOverlay(String, int, int): void&lt;br&gt;+ hideColorPickOverlay(): void&lt;br&gt;+ hideRoundOverOverlay(): void&lt;br&gt;+ showMenuOverlay(): void&lt;br&gt;+ hideHumanHand(): void&lt;br&gt;+ showChallengeOverlay(): void&lt;br&gt;+ updateTable(GameEngine): void&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; scene: Scene&lt;br&gt; buttonColorGreen: Button&lt;br&gt; buttonColorBlue: Button&lt;br&gt; buttonPass: Button&lt;br&gt; buttonMenu: Button&lt;br&gt; buttonNextRound: Button&lt;br&gt; buttonUno: Button&lt;br&gt; buttonNoChallenge: Button&lt;br&gt; buttonColorRed: Button&lt;br&gt; buttonColorYellow: Button&lt;br&gt; buttonCloseMenu: Button&lt;br&gt; buttonDeck: Button&lt;br&gt; buttonNewGame: Button&lt;br&gt; buttonChallenge: Button&lt;br&gt; buttonContestUno: Button&lt;br&gt; buttonExitGame: Button&lt;/p&gt;" vertex="1">
+      <mxGeometry height="869.9999999999999" width="418.05359661495055" x="2152.9464033850495" y="428" as="geometry" />
+    </mxCell>
+    <mxCell id="-iI-yGfUOBvSSYe0GFwC-43" parent="1" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Menu&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ Menu(): &lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- scene: Scene&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ hideThreshold(): void&lt;br&gt;+ hideFormAddPlayers(): void&lt;br&gt;+ showFormAddPlayers(): void&lt;br&gt;+ showThreshold(): void&lt;br&gt;+ showError(String): void&lt;br&gt;+ addPlayerLine(String, Runnable): void&lt;br&gt;+ showSectionPlayers(): void&lt;br&gt;+ hideError(): void&lt;br&gt;+ hideSectionPlayers(): void&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt; scene: Scene&lt;br&gt; buttonAddPlayer: Button&lt;br&gt; buttonConfirm: Button&lt;br&gt; tipo: String&lt;br&gt; buttonUndo: Button&lt;br&gt; nome: String&lt;br&gt; buttonStart: Button&lt;br&gt; buttonSingleGame: Button&lt;br&gt; buttonPointsGame: Button&lt;br&gt; threshold: int&lt;/p&gt;" vertex="1">
+      <mxGeometry height="573.1764705882352" width="310.86036671368123" x="1811" y="428" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>
+  
