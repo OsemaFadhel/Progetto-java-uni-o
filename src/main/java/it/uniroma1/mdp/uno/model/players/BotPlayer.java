@@ -78,7 +78,7 @@ public class BotPlayer extends Player {
 	 * Sceglie se contestare o meno un avversario che non ha dichiarato UNO, in base
 	 * alla strategia
 	 * 
-	 * @return
+	 * @return true se il bot decide di contestare, false altrimenti.
 	 */
 	public boolean shouldContestUno() {
 		return strategy.shouldContestUno();

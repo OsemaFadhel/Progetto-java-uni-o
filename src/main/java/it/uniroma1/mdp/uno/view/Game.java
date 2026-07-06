@@ -407,7 +407,7 @@ public class Game {
 	}
 
 	/**
-	 * @return
+	 * @return {@link Button}
 	 */
 	public Button getButtonColorYellow() {
 		return btnColorYellow;

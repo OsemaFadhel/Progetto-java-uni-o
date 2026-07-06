@@ -41,7 +41,7 @@ public abstract class Card {
 	/**
 	 * Restituisce il punteggio di questa carta ai fini del punteggio di fine round.
 	 * 
-	 * @return
+	 * @return int
 	 */
 	public abstract int getPoints();
 

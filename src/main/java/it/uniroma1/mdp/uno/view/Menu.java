@@ -256,7 +256,7 @@ public class Menu {
 	}
 
 	/**
-	 * @return {@link int}
+	 * @return {@code int}
 	 */
 	public int getThreshold() {
 		return (int) sliderThreshold.getValue();
