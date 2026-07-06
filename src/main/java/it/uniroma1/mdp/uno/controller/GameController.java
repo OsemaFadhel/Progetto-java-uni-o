@@ -27,7 +27,7 @@ public class GameController {
 	private Stage stage;
 	private Menu menuView;
 	private Game gameView;
-updateStartButton
+
 	/**
 	 * Crea un nuovo GameController con il motore di gioco e la finestra principale.
 	 * 
