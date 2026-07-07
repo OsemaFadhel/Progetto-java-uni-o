@@ -1,22 +1,64 @@
-E per Reverse/Skip/Draw Two come prima carta?
-Questa è una questione diversa. Le regole ufficiali dicono che se la prima carta è un'azione, l'effetto si applica prima che chiunque giochi. La specifica però dice genericamente "effetti delle carte azione" senza specificare esplicitamente la prima carta.
+# UNO — Progetto MDP 2025/26
 
-È una semplificazione accettabile non applicare questi effetti sulla prima carta, a patto di documentarlo nella relazione nella sezione "eventuali semplificazioni o scelte interpretative". La specifica lo prevede esplicitamente come punto della relazione.
+Implementazione del gioco di carte UNO in Java con interfaccia grafica JavaFX.
+Progetto individuale per il corso di Metodologie di Programmazione, Università La Sapienza Roma.
 
-Per il tuo progetto universitario però:
-
-Hai 2 modalità fisse, lo sai fin dall'inizio, non cambieranno. Il professore non chiede estensibilità sulle modalità — chiede che tu usi i pattern giusti dove ha senso (Strategy per i Bot, State Machine per il flusso). Usare una Strategy su GameMode con 2 case sarebbe over-engineering e potrebbe sembrare che hai messo un pattern a caso.
-
-Risposta onesta: in produzione → Strategy/interfaccia. Per questo esame → enum è la scelta corretta e difendibile.
+**Autore:** Osema Fadhel
 
 
-Reverse with 2 players: With 2 players, Reverse just flips isClockwise but the turn order with 2 players is identical regardless of direction — so Reverse has no effect. Spec says: "deve essere gestito in modo coerente e la relazione deve indicare la scelta adottata". You must document this explicitly in the report.
+## Requisiti
 
-First card on discard pile: If the first revealed card is an action card (Skip/Reverse/Draw Two), its effect is NOT applied. This is a valid interpretation but should be mentioned.
+| Requisito | Versione |
+|-----------|---------|
+| Java | 21 o superiore |
+| Maven | 3.9.9 |
+
+## Classe principale
+
+``` bash
+it.uniroma1.mdp.uno.Main
+```
+
+> Non è possibile eseguire direttamente Main.java con Run As -> Java Application senza configurare manualmente il module path di JavaFX. Seguire la guida descritta sotto.
 
 
-FX_JARS=$(find ~/.m2/repository/org/openjfx -name "*.jar" | grep "23.0.2" | grep -v sources | grep -v javadoc | tr '\n' ':')
+## Esecuzione
 
-javadoc -d docs/JavaDOC -sourcepath src/main/java -subpackages it.uniroma1.mdp.uno \
-  -classpath "$FX_JARS" -encoding UTF-8 -charset UTF-8 \
-  -windowtitle "UNO Game" -author -private
+### Da terminale
+
+Dalla cartella radice del progetto:
+
+```bash
+mvn javafx:run
+```
+
+### Da Eclipse
+
+1. `File -> Import -> Maven -> Existing Maven Projects`: selezionare la cartella del progetto
+2. Run -> Run Configurations
+3. In Goals inserire javafx:run
+4. Cliccare Run
+
+---
+
+## Avvio di una partita normale
+
+1. Avviare l'applicazione
+2. Selezionare la modalità di partita: Partita Singola o Partita a Punti
+3. Per la modalità a punti, impostare la soglia di vittoria tramite lo slider (default: 500)
+4. Aggiungere da 2 a 6 giocatori specificando nome e tipo (Umano / Bot Casuale / Bot Greedy)
+5. Cliccare Inizia Partita
+
+---
+
+## Screenshot
+
+![gameview](docs/JavaDOC/screenshot/gameview.png)
+
+---
+
+## Limitazioni note
+
+- La carta Reverse con 2 giocatori non produce effetto sull'ordine dei turni.
+- La prima carta del mazzo degli scarti non applica il proprio effetto se è una carta azione.
+- Le carte del giocatore umano vengono nascoste per 3 secondi quando il giocatore passa il turno.
