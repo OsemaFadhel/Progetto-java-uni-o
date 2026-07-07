@@ -12,7 +12,7 @@ Progetto individuale per il corso di Metodologie di Programmazione, Università 
 
 | Requisito | Versione |
 |-----------|---------|
-| Java | 21 o superiore |
+| Java | 21+|
 | Maven | 3.9.9 |
 
 ## Classe principale
