@@ -5,6 +5,8 @@ Progetto individuale per il corso di Metodologie di Programmazione, Università 
 
 **Autore:** Osema Fadhel
 
+![gameview](https://github.com/OsemaFadhel/Progetto-java-uni-o/blob/main/docs/screenshots/gameview.png)
+
 
 ## Requisiti
 
@@ -19,7 +21,7 @@ Progetto individuale per il corso di Metodologie di Programmazione, Università 
 it.uniroma1.mdp.uno.Main
 ```
 
-> Non è possibile eseguire direttamente Main.java con Run As -> Java Application senza configurare manualmente il module path di JavaFX. Seguire la guida descritta sotto.
+> Non è possibile eseguire direttamente Main.java con Run As -> Java Application. Seguire la guida descritta sotto.
 
 
 ## Esecuzione
@@ -35,11 +37,10 @@ mvn javafx:run
 ### Da Eclipse
 
 1. `File -> Import -> Maven -> Existing Maven Projects`: selezionare la cartella del progetto
-2. Run -> Run Configurations
-3. In Goals inserire javafx:run
-4. Cliccare Run
+2. `Run -> Run Configurations`
+3. In Goals inserire `javafx:run`
+4. Cliccare `Run`
 
----
 
 ## Avvio di una partita normale
 
@@ -49,13 +50,6 @@ mvn javafx:run
 4. Aggiungere da 2 a 6 giocatori specificando nome e tipo (Umano / Bot Casuale / Bot Greedy)
 5. Cliccare Inizia Partita
 
----
-
-## Screenshot
-
-![gameview](docs/JavaDOC/screenshot/gameview.png)
-
----
 
 ## Limitazioni note
 
