@@ -1,4 +1,4 @@
-# UNO — Progetto MDP 2025/26
+<h1 align="center"> UNO - Progetto MDP 2025/26 </h1>
 
 Implementazione del gioco di carte UNO in Java con interfaccia grafica JavaFX.
 Progetto individuale per il corso di Metodologie di Programmazione, Università La Sapienza Roma.
